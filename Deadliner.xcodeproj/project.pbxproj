@@ -10,13 +10,16 @@
 		422D0755243C6ADE0092763D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0754243C6ADE0092763D /* AppDelegate.swift */; };
 		422D0757243C6ADE0092763D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0756243C6ADE0092763D /* SceneDelegate.swift */; };
 		422D075C243C6ADE0092763D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 422D075A243C6ADE0092763D /* Main.storyboard */; };
-		422D075F243C6ADE0092763D /* Deadliner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 422D075D243C6ADE0092763D /* Deadliner.xcdatamodeld */; };
 		422D0761243C6ADF0092763D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 422D0760243C6ADF0092763D /* Assets.xcassets */; };
 		422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 422D0762243C6ADF0092763D /* LaunchScreen.storyboard */; };
 		422D076F243C6ADF0092763D /* DeadlinerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D076E243C6ADF0092763D /* DeadlinerTests.swift */; };
 		422D077A243C6ADF0092763D /* DeadlinerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0779243C6ADF0092763D /* DeadlinerUITests.swift */; };
 		F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9139E02243C86A000F2118F /* ActivityTableViewController.swift */; };
 		F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */; };
+		FF11EBA2243F5A75002C9E3A /* Deadliner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF11EB9E243F5A75002C9E3A /* Deadliner.xcdatamodeld */; };
+		FF11EBA3243F5A75002C9E3A /* DBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF11EBA0243F5A75002C9E3A /* DBConstants.swift */; };
+		FF11EBA4243F5A75002C9E3A /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF11EBA1243F5A75002C9E3A /* DBManager.swift */; };
+		FF11EBA6243F5BCA002C9E3A /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = FF11EBA5243F5BCA002C9E3A /* README.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +44,6 @@
 		422D0754243C6ADE0092763D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		422D0756243C6ADE0092763D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		422D075B243C6ADE0092763D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		422D075E243C6ADE0092763D /* Deadliner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Deadliner.xcdatamodel; sourceTree = "<group>"; };
 		422D0760243C6ADF0092763D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		422D0763243C6ADF0092763D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		422D0765243C6ADF0092763D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +55,10 @@
 		422D077B243C6ADF0092763D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9139E02243C86A000F2118F /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
+		FF11EB9F243F5A75002C9E3A /* Deadliner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Deadliner.xcdatamodel; sourceTree = "<group>"; };
+		FF11EBA0243F5A75002C9E3A /* DBConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBConstants.swift; sourceTree = "<group>"; };
+		FF11EBA1243F5A75002C9E3A /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		FF11EBA5243F5BCA002C9E3A /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,7 @@
 		422D0753243C6ADE0092763D /* Deadliner */ = {
 			isa = PBXGroup;
 			children = (
+				FF11EB9D243F5A59002C9E3A /* Models */,
 				F9139E02243C86A000F2118F /* ActivityTableViewController.swift */,
 				422D0754243C6ADE0092763D /* AppDelegate.swift */,
 				422D0756243C6ADE0092763D /* SceneDelegate.swift */,
@@ -110,7 +117,6 @@
 				422D0760243C6ADF0092763D /* Assets.xcassets */,
 				422D0762243C6ADF0092763D /* LaunchScreen.storyboard */,
 				422D0765243C6ADF0092763D /* Info.plist */,
-				422D075D243C6ADE0092763D /* Deadliner.xcdatamodeld */,
 				F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */,
 			);
 			path = Deadliner;
@@ -132,6 +138,17 @@
 				422D077B243C6ADF0092763D /* Info.plist */,
 			);
 			path = DeadlinerUITests;
+			sourceTree = "<group>";
+		};
+		FF11EB9D243F5A59002C9E3A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FF11EBA0243F5A75002C9E3A /* DBConstants.swift */,
+				FF11EBA1243F5A75002C9E3A /* DBManager.swift */,
+				FF11EB9E243F5A75002C9E3A /* Deadliner.xcdatamodeld */,
+				FF11EBA5243F5BCA002C9E3A /* README.txt */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +257,7 @@
 			files = (
 				422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */,
 				422D0761243C6ADF0092763D /* Assets.xcassets in Resources */,
+				FF11EBA6243F5BCA002C9E3A /* README.txt in Resources */,
 				422D075C243C6ADE0092763D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,8 +285,10 @@
 			files = (
 				F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */,
 				422D0755243C6ADE0092763D /* AppDelegate.swift in Sources */,
+				FF11EBA3243F5A75002C9E3A /* DBConstants.swift in Sources */,
+				FF11EBA4243F5A75002C9E3A /* DBManager.swift in Sources */,
 				F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */,
-				422D075F243C6ADE0092763D /* Deadliner.xcdatamodeld in Sources */,
+				FF11EBA2243F5A75002C9E3A /* Deadliner.xcdatamodeld in Sources */,
 				422D0757243C6ADE0092763D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,12 +620,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		422D075D243C6ADE0092763D /* Deadliner.xcdatamodeld */ = {
+		FF11EB9E243F5A75002C9E3A /* Deadliner.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				422D075E243C6ADE0092763D /* Deadliner.xcdatamodel */,
+				FF11EB9F243F5A75002C9E3A /* Deadliner.xcdatamodel */,
 			);
-			currentVersion = 422D075E243C6ADE0092763D /* Deadliner.xcdatamodel */;
+			currentVersion = FF11EB9F243F5A75002C9E3A /* Deadliner.xcdatamodel */;
 			path = Deadliner.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
