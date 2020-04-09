@@ -17,7 +17,6 @@
 		422D077A243C6ADF0092763D /* DeadlinerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0779243C6ADF0092763D /* DeadlinerUITests.swift */; };
 		F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9139E02243C86A000F2118F /* ActivityTableViewController.swift */; };
 		F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */; };
-		F9454081243F1CF800CD629E /* Activity~.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F945407F243F1CF800CD629E /* Activity~.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +53,6 @@
 		422D077B243C6ADF0092763D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9139E02243C86A000F2118F /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
-		F9454080243F1CF800CD629E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "../../Deadliner/Deadliner/Base.lproj/Activity~.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +103,6 @@
 		422D0753243C6ADE0092763D /* Deadliner */ = {
 			isa = PBXGroup;
 			children = (
-				F945407F243F1CF800CD629E /* Activity~.storyboard */,
 				F9139E02243C86A000F2118F /* ActivityTableViewController.swift */,
 				422D0754243C6ADE0092763D /* AppDelegate.swift */,
 				422D0756243C6ADE0092763D /* SceneDelegate.swift */,
@@ -243,7 +240,6 @@
 			files = (
 				422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */,
 				422D0761243C6ADF0092763D /* Assets.xcassets in Resources */,
-				F9454081243F1CF800CD629E /* Activity~.storyboard in Resources */,
 				422D075C243C6ADE0092763D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,14 +319,6 @@
 				422D0763243C6ADF0092763D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		F945407F243F1CF800CD629E /* Activity~.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F9454080243F1CF800CD629E /* Base */,
-			);
-			name = "Activity~.storyboard";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
