@@ -15,9 +15,12 @@
 		422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 422D0762243C6ADF0092763D /* LaunchScreen.storyboard */; };
 		422D076F243C6ADF0092763D /* DeadlinerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D076E243C6ADF0092763D /* DeadlinerTests.swift */; };
 		422D077A243C6ADF0092763D /* DeadlinerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0779243C6ADF0092763D /* DeadlinerUITests.swift */; };
+		E1672B39243F1CA500D788AD /* AddActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1672B38243F1CA500D788AD /* AddActivityViewController.swift */; };
+		E1672B3B243F1D6C00D788AD /* EditActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1672B3A243F1D6C00D788AD /* EditActivityViewController.swift */; };
+		E1672B3E243F1E3F00D788AD /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1672B3C243F1E3F00D788AD /* Edit.storyboard */; };
+		E1672B40243F1E6200D788AD /* Add.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1672B3F243F1E6200D788AD /* Add.storyboard */; };
 		F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9139E02243C86A000F2118F /* ActivityTableViewController.swift */; };
 		F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */; };
-		F945407E243F153700CD629E /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F945407C243F153700CD629E /* Activity.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,9 +55,12 @@
 		422D0775243C6ADF0092763D /* DeadlinerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeadlinerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		422D0779243C6ADF0092763D /* DeadlinerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinerUITests.swift; sourceTree = "<group>"; };
 		422D077B243C6ADF0092763D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1672B38243F1CA500D788AD /* AddActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityViewController.swift; sourceTree = "<group>"; };
+		E1672B3A243F1D6C00D788AD /* EditActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewController.swift; sourceTree = "<group>"; };
+		E1672B3D243F1E3F00D788AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Deadliner/Base.lproj/Edit.storyboard; sourceTree = "<group>"; };
+		E1672B3F243F1E6200D788AD /* Add.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Add.storyboard; sourceTree = "<group>"; };
 		F9139E02243C86A000F2118F /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
-		F945407D243F153700CD629E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Deadliner/Base.lproj/Activity.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,11 +111,14 @@
 		422D0753243C6ADE0092763D /* Deadliner */ = {
 			isa = PBXGroup;
 			children = (
-				F945407C243F153700CD629E /* Activity.storyboard */,
+				E1672B3F243F1E6200D788AD /* Add.storyboard */,
+				E1672B3C243F1E3F00D788AD /* Edit.storyboard */,
 				F9139E02243C86A000F2118F /* ActivityTableViewController.swift */,
 				422D0754243C6ADE0092763D /* AppDelegate.swift */,
 				422D0756243C6ADE0092763D /* SceneDelegate.swift */,
 				422D075A243C6ADE0092763D /* Main.storyboard */,
+				E1672B3A243F1D6C00D788AD /* EditActivityViewController.swift */,
+				E1672B38243F1CA500D788AD /* AddActivityViewController.swift */,
 				422D0760243C6ADF0092763D /* Assets.xcassets */,
 				422D0762243C6ADF0092763D /* LaunchScreen.storyboard */,
 				422D0765243C6ADF0092763D /* Info.plist */,
@@ -241,10 +250,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1672B3E243F1E3F00D788AD /* Edit.storyboard in Resources */,
 				422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */,
+				E1672B40243F1E6200D788AD /* Add.storyboard in Resources */,
 				422D0761243C6ADF0092763D /* Assets.xcassets in Resources */,
 				422D075C243C6ADE0092763D /* Main.storyboard in Resources */,
-				F945407E243F153700CD629E /* Activity.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,8 +282,10 @@
 				F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */,
 				422D0755243C6ADE0092763D /* AppDelegate.swift in Sources */,
 				F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */,
+				E1672B39243F1CA500D788AD /* AddActivityViewController.swift in Sources */,
 				422D075F243C6ADE0092763D /* Deadliner.xcdatamodeld in Sources */,
 				422D0757243C6ADE0092763D /* SceneDelegate.swift in Sources */,
+				E1672B3B243F1D6C00D788AD /* EditActivityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,12 +337,12 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		F945407C243F153700CD629E /* Activity.storyboard */ = {
+		E1672B3C243F1E3F00D788AD /* Edit.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F945407D243F153700CD629E /* Base */,
+				E1672B3D243F1E3F00D788AD /* Base */,
 			);
-			name = Activity.storyboard;
+			name = Edit.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
