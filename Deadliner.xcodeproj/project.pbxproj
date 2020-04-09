@@ -18,7 +18,6 @@
 		E1672B39243F1CA500D788AD /* AddActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1672B38243F1CA500D788AD /* AddActivityViewController.swift */; };
 		E1672B3B243F1D6C00D788AD /* EditActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1672B3A243F1D6C00D788AD /* EditActivityViewController.swift */; };
 		E1672B40243F1E6200D788AD /* Add.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1672B3F243F1E6200D788AD /* Add.storyboard */; };
-		E1672B43243F23DC00D788AD /* EditActivity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1672B41243F23DC00D788AD /* EditActivity.storyboard */; };
 		F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9139E02243C86A000F2118F /* ActivityTableViewController.swift */; };
 		F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -58,7 +57,6 @@
 		E1672B38243F1CA500D788AD /* AddActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityViewController.swift; sourceTree = "<group>"; };
 		E1672B3A243F1D6C00D788AD /* EditActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewController.swift; sourceTree = "<group>"; };
 		E1672B3F243F1E6200D788AD /* Add.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Add.storyboard; sourceTree = "<group>"; };
-		E1672B42243F23DC00D788AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Deadliner/Base.lproj/EditActivity.storyboard; sourceTree = "<group>"; };
 		F9139E02243C86A000F2118F /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,7 +109,6 @@
 		422D0753243C6ADE0092763D /* Deadliner */ = {
 			isa = PBXGroup;
 			children = (
-				E1672B41243F23DC00D788AD /* EditActivity.storyboard */,
 				E1672B3F243F1E6200D788AD /* Add.storyboard */,
 				F9139E02243C86A000F2118F /* ActivityTableViewController.swift */,
 				422D0754243C6ADE0092763D /* AppDelegate.swift */,
@@ -250,7 +247,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1672B43243F23DC00D788AD /* EditActivity.storyboard in Resources */,
 				422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */,
 				E1672B40243F1E6200D788AD /* Add.storyboard in Resources */,
 				422D0761243C6ADF0092763D /* Assets.xcassets in Resources */,
@@ -335,14 +331,6 @@
 				422D0763243C6ADF0092763D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		E1672B41243F23DC00D788AD /* EditActivity.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E1672B42243F23DC00D788AD /* Base */,
-			);
-			name = EditActivity.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
