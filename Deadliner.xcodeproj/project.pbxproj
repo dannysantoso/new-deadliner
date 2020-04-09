@@ -15,6 +15,7 @@
 		422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 422D0762243C6ADF0092763D /* LaunchScreen.storyboard */; };
 		422D076F243C6ADF0092763D /* DeadlinerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D076E243C6ADF0092763D /* DeadlinerTests.swift */; };
 		422D077A243C6ADF0092763D /* DeadlinerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0779243C6ADF0092763D /* DeadlinerUITests.swift */; };
+		4238559F243F1CAF0040B53D /* Peter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4238559E243F1CAF0040B53D /* Peter.storyboard */; };
 		F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9139E02243C86A000F2118F /* ActivityTableViewController.swift */; };
 		F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */; };
 		F945407E243F153700CD629E /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F945407C243F153700CD629E /* Activity.storyboard */; };
@@ -52,6 +53,7 @@
 		422D0775243C6ADF0092763D /* DeadlinerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeadlinerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		422D0779243C6ADF0092763D /* DeadlinerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinerUITests.swift; sourceTree = "<group>"; };
 		422D077B243C6ADF0092763D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4238559E243F1CAF0040B53D /* Peter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Peter.storyboard; path = Deadliners/Peter.storyboard; sourceTree = "<group>"; };
 		F9139E02243C86A000F2118F /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 		F945407D243F153700CD629E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Deadliner/Base.lproj/Activity.storyboard; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		422D0748243C6ADE0092763D = {
 			isa = PBXGroup;
 			children = (
+				4238559E243F1CAF0040B53D /* Peter.storyboard */,
 				422D0753243C6ADE0092763D /* Deadliner */,
 				422D076D243C6ADF0092763D /* DeadlinerTests */,
 				422D0778243C6ADF0092763D /* DeadlinerUITests */,
@@ -245,6 +248,7 @@
 				422D0761243C6ADF0092763D /* Assets.xcassets in Resources */,
 				422D075C243C6ADE0092763D /* Main.storyboard in Resources */,
 				F945407E243F153700CD629E /* Activity.storyboard in Resources */,
+				4238559F243F1CAF0040B53D /* Peter.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
