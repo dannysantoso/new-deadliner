@@ -15,6 +15,9 @@
 		422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 422D0762243C6ADF0092763D /* LaunchScreen.storyboard */; };
 		422D076F243C6ADF0092763D /* DeadlinerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D076E243C6ADF0092763D /* DeadlinerTests.swift */; };
 		422D077A243C6ADF0092763D /* DeadlinerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0779243C6ADF0092763D /* DeadlinerUITests.swift */; };
+		867ED2C4243F34CF0028E788 /* dateCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED2C3243F34CF0028E788 /* dateCalculation.swift */; };
+		867ED2C6243F36670028E788 /* detailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 867ED2C5243F36670028E788 /* detailView.storyboard */; };
+		867ED2C8243F36C80028E788 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED2C7243F36C80028E788 /* DetailView.swift */; };
 		F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9139E02243C86A000F2118F /* ActivityTableViewController.swift */; };
 		F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */; };
 		F945407E243F153700CD629E /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F945407C243F153700CD629E /* Activity.storyboard */; };
@@ -52,6 +55,9 @@
 		422D0775243C6ADF0092763D /* DeadlinerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeadlinerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		422D0779243C6ADF0092763D /* DeadlinerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinerUITests.swift; sourceTree = "<group>"; };
 		422D077B243C6ADF0092763D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		867ED2C3243F34CF0028E788 /* dateCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dateCalculation.swift; sourceTree = "<group>"; };
+		867ED2C5243F36670028E788 /* detailView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = detailView.storyboard; sourceTree = "<group>"; };
+		867ED2C7243F36C80028E788 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		F9139E02243C86A000F2118F /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 		F945407D243F153700CD629E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Deadliner/Base.lproj/Activity.storyboard; sourceTree = "<group>"; };
@@ -115,6 +121,9 @@
 				422D0765243C6ADF0092763D /* Info.plist */,
 				422D075D243C6ADE0092763D /* Deadliner.xcdatamodeld */,
 				F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */,
+				867ED2C3243F34CF0028E788 /* dateCalculation.swift */,
+				867ED2C5243F36670028E788 /* detailView.storyboard */,
+				867ED2C7243F36C80028E788 /* DetailView.swift */,
 			);
 			path = Deadliner;
 			sourceTree = "<group>";
@@ -241,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				867ED2C6243F36670028E788 /* detailView.storyboard in Resources */,
 				422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */,
 				422D0761243C6ADF0092763D /* Assets.xcassets in Resources */,
 				422D075C243C6ADE0092763D /* Main.storyboard in Resources */,
@@ -270,7 +280,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */,
+				867ED2C4243F34CF0028E788 /* dateCalculation.swift in Sources */,
 				422D0755243C6ADE0092763D /* AppDelegate.swift in Sources */,
+				867ED2C8243F36C80028E788 /* DetailView.swift in Sources */,
 				F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */,
 				422D075F243C6ADE0092763D /* Deadliner.xcdatamodeld in Sources */,
 				422D0757243C6ADE0092763D /* SceneDelegate.swift in Sources */,
