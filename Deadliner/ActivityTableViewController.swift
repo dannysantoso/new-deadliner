@@ -13,9 +13,34 @@ class ActivityTableViewController: UITableViewController {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
+    var activities: [Activity] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        segmentedControl.selectedSegmentIndex = 1
+        
+//        let newActivity = Activity(context: db.context)
+//        newActivity.title = "activity 1"
+//        newActivity.priority = 3
+//        newActivity.isDone = false
+//        newActivity.startDate = Date().addingTimeInterval(-500000000)
+//        newActivity.endDate = Date().addingTimeInterval(-500)
+//
+//        db.save()
+//
 
+//        let newActivity2 = Activity(context: db.context)
+//        newActivity2.title = "activity 2"
+//        newActivity2.priority = 2
+//        newActivity2.isDone = false
+//        newActivity2.startDate = Date().addingTimeInterval(-500000000)
+//        newActivity2.endDate = Date().addingTimeInterval(500000000000)
+//
+//        db.save()
+        
+//        activities = db.fetch()
+        let predicate = NSPredicate(format: "startDate < %@ AND isDone == false", Date() as NSDate)
+        activities = db.fetch(withPredicate: predicate)
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,7 +57,7 @@ class ActivityTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return activities.count
     }
 
     
@@ -40,15 +65,18 @@ class ActivityTableViewController: UITableViewController {
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            print("Coming")
+            let predicate = NSPredicate(format: "startDate > %@", Date() as NSDate)
+            activities = db.fetch(withPredicate: predicate)
             self.tableView.reloadData()
             break
         case 1:
-            print("Ongoing")
+            let predicate = NSPredicate(format: "startDate < %@ AND isDone == false", Date() as NSDate)
+            activities = db.fetch(withPredicate: predicate)
             self.tableView.reloadData()
             break
         case 2:
-            print("Done")
+            let predicate = NSPredicate(format: "startDate < %@ AND isDone == true", Date() as NSDate)
+            activities = db.fetch(withPredicate: predicate)
             self.tableView.reloadData()
             break
         default:
@@ -59,9 +87,50 @@ class ActivityTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath) as? ActivityTableViewCell{
 
-            cell.nameActivity?.text = "Hallo"
-            cell.priorityActivity?.text = "Low"
-            cell.setTimerActivity(timer: " 2 Days")
+            cell.nameActivity.text = activities[indexPath.row].title
+            cell.nameActivity.sizeToFit()
+            
+            switch activities[indexPath.row].priority {
+            case 3:
+                cell.priorityActivity.text = "High"
+                cell.priorityActivity.backgroundColor = .red
+                break
+            case 2:
+                cell.priorityActivity.text = "Medium"
+                cell.priorityActivity.backgroundColor = .orange
+                break
+            case 1:
+                cell.priorityActivity.text = "Low"
+                cell.priorityActivity.backgroundColor = .blue
+                break
+            default:
+                break
+            }
+            
+            switch segmentedControl.selectedSegmentIndex {
+            case 0:
+                cell.labelTimer.isHidden = false
+                cell.labelTimer.text = "Start in"
+                cell.timerActivity.text = calculateDate(start: Date(), end: activities[indexPath.row].startDate ?? Date())
+                break
+            case 1:
+                cell.labelTimer.isHidden = false
+                if activities[indexPath.row].endDate ?? Date() < Date() {
+                    cell.labelTimer.isHidden = true
+                    cell.timerActivity.text = "Times up"
+                } else{
+                    cell.labelTimer.text = "Deadline in"
+                    cell.timerActivity.text = calculateDate(start: Date(), end: activities[indexPath.row].endDate ?? Date())
+                }
+                break
+            case 2:
+                cell.labelTimer.isHidden = true
+                cell.timerActivity.text = "Finish"
+                break
+            default:
+                break
+            }
+            
             
             return cell
         }
@@ -71,7 +140,9 @@ class ActivityTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){_,_,_ in
-            print("DELETE")
+            self.db.remove(self.activities[indexPath.row])
+            self.activities.remove(at: indexPath.row)
+            tableView.reloadData()
         }
         
         let editAction = UIContextualAction(style: .normal, title: "Edit"){_,_,_ in
@@ -80,7 +151,10 @@ class ActivityTableViewController: UITableViewController {
         
         if segmentedControl.selectedSegmentIndex == 1 {
             let finishAction = UIContextualAction(style: .normal, title: "Finish"){_,_,_ in
-                print("Finish")
+                self.activities[indexPath.row].isDone = true
+                self.db.save()
+                self.activities.remove(at: indexPath.row)
+                tableView.reloadData()
             }
             return UISwipeActionsConfiguration(actions: [deleteAction, editAction, finishAction])
         }
