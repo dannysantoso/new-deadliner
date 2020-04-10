@@ -9,11 +9,13 @@
 import UIKit
 
 class ActivityTableViewController: UITableViewController {
+    var db = DBManager()
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
