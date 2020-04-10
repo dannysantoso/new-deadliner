@@ -19,6 +19,7 @@ class DetailView: UIViewController {
     
     var activity: Activity? = nil
     var db = DBManager()
+    var delegate: BackHandler?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,10 @@ class DetailView: UIViewController {
         }
         taskDescription.text = activity?.notes
         
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        delegate?.onBackHome()
     }
     
     @IBAction func editActivity(_ sender: Any) {

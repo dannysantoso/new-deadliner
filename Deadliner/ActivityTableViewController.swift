@@ -8,10 +8,10 @@
 
 import UIKit
 
-protocol ModalHandler {
-    func modalDismissed()
+protocol BackHandler {
+    func onBackHome()
 }
-class ActivityTableViewController: UITableViewController, ModalHandler {
+class ActivityTableViewController: UITableViewController, BackHandler {
     var db = DBManager()
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -36,7 +36,7 @@ class ActivityTableViewController: UITableViewController, ModalHandler {
     
     //MARK: - Modal Dismissed Handler
     
-    func modalDismissed() {
+    func onBackHome() {
         refreshData()
     }
     
@@ -204,9 +204,10 @@ class ActivityTableViewController: UITableViewController, ModalHandler {
         if let destination = segue.destination as? EditActivityViewController {
             destination.activity = sender as? Activity
         } else if let destination = segue.destination as? DetailView {
+            destination.delegate = self
             destination.activity = sender as? Activity
         } else if let destination = segue.destination as? AddActivityViewController{
-            destination.delegete = self
+            destination.delegate = self
         }
     }
 }

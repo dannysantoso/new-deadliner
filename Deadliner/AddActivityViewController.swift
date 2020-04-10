@@ -31,7 +31,7 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     
     var db = DBManager()
     
-    var delegete: ModalHandler?
+    var delegate: BackHandler?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -235,7 +235,7 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
             db.save()
         }
         dismiss(animated: true){
-            self.delegete?.modalDismissed()
+            self.delegate?.onBackHome()
         }
         
         //                print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
