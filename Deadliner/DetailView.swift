@@ -15,6 +15,8 @@ class DetailView: UIViewController {
     @IBOutlet weak var priorityLevel: UILabel!
     @IBOutlet weak var taskDescription: UILabel!
     
+    var activity: Activity? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

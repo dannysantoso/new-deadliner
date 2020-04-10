@@ -162,6 +162,10 @@ class ActivityTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "toDetail", sender: activities[indexPath.row])
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -204,6 +208,8 @@ class ActivityTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? EditActivityViewController {
+            destination.activity = sender as? Activity
+        } else if let destination = segue.destination as? DetailView {
             destination.activity = sender as? Activity
         }
     }

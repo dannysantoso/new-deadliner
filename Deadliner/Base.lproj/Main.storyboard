@@ -98,7 +98,7 @@
                         <outlet property="segmentedControl" destination="OgT-ut-pd4" id="Aky-jz-NSA"/>
                         <outlet property="tableView" destination="een-b5-qHk" id="LU0-Xw-cX7"/>
                         <segue destination="9XY-1H-H5a" kind="presentation" identifier="toEdit" id="Crl-bF-o1G"/>
-                        <segue destination="1Zi-ef-WuF" kind="show" id="1V7-PH-L7I"/>
+                        <segue destination="1Zi-ef-WuF" kind="show" identifier="toDetail" id="1V7-PH-L7I"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BH0-zZ-Fm5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
