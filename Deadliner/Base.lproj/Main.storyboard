@@ -510,6 +510,9 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                     </preferredSymbolConfiguration>
                                 </state>
+                                <connections>
+                                    <segue destination="9XY-1H-H5a" kind="presentation" id="w5M-Pv-V1E"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jvb-kW-AE9">
                                 <rect key="frame" x="20" y="404" width="109" height="27"/>
@@ -545,7 +548,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VGJ-f6-chf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1861" y="867"/>
+            <point key="canvasLocation" x="1860.8695652173915" y="866.51785714285711"/>
         </scene>
     </scenes>
     <resources>
@@ -553,4 +556,7 @@
         <image name="plus" catalog="system" width="64" height="56"/>
         <image name="trash" catalog="system" width="60" height="64"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="w5M-Pv-V1E"/>
+    </inferredMetricsTieBreakers>
 </document>
