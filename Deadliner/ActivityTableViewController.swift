@@ -9,11 +9,14 @@
 import UIKit
 
 class ActivityTableViewController: UITableViewController {
+    var db = DBManager()
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -38,12 +41,15 @@ class ActivityTableViewController: UITableViewController {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             print("Coming")
+            self.tableView.reloadData()
             break
         case 1:
             print("Ongoing")
+            self.tableView.reloadData()
             break
         case 2:
             print("Done")
+            self.tableView.reloadData()
             break
         default:
             break
@@ -70,6 +76,13 @@ class ActivityTableViewController: UITableViewController {
         
         let editAction = UIContextualAction(style: .normal, title: "Edit"){_,_,_ in
             print("Edit")
+        }
+        
+        if segmentedControl.selectedSegmentIndex == 1 {
+            let finishAction = UIContextualAction(style: .normal, title: "Finish"){_,_,_ in
+                print("Finish")
+            }
+            return UISwipeActionsConfiguration(actions: [deleteAction, editAction, finishAction])
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
