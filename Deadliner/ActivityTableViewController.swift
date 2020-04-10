@@ -15,6 +15,10 @@ class ActivityTableViewController: UITableViewController {
     
     var activities: [Activity] = []
     
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentedControl.selectedSegmentIndex = 1

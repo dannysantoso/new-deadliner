@@ -10,6 +10,6 @@ import Foundation
 
 func dateConverter(tanggal: Date) -> String{
     let datetostring = DateFormatter()
-    datetostring.dateFormat = "dd MMM yyyy, HH:mm"
+    datetostring.dateFormat = "MMMM dd, yyyy hh:mm aa"
     return datetostring.string(from: tanggal)
 }

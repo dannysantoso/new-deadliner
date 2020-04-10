@@ -208,7 +208,8 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
                 alertValidation("Please fill your Activity Name")
             }else if tfStartDate.text?.isEmpty == true{
                 alertValidation("Please fill your Start Date")
-            }else if !(datePicker.date >= Date()){                    alertValidation("Your Start Date can't be below from Current Date")
+            }else if !(datePicker.date >= Date()){
+                alertValidation("Your Start Date can't be below from Current Date")
             }else if tfDeadlineDate.text?.isEmpty == true{
                 alertValidation("Please fill your Deadline Date")
             }else if datePicker.date >= datePickerDeadline.date{
@@ -231,6 +232,7 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
             
             
                 db.save()
+                tableView.reloadData()
             }
                 dismiss(animated: true, completion: nil)
             

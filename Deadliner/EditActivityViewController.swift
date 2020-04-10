@@ -18,6 +18,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             @IBOutlet weak var tvActivityDescription: UITextView!
             
             let datePicker = UIDatePicker()
+            let datePickerDeadline = UIDatePicker()
             let pickerView = UIPickerView()
             let placeholder = "Activity Description"
             
@@ -26,14 +27,50 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             var pickerData: [String] = [String]()
     
             var activity: Activity? = nil
+            var priorityIndex = 0
             
             var result = ""
+    
+            var db = DBManager()
             
             override func viewDidLoad() {
                 super.viewDidLoad()
                 
+                pickerData = ["High","Medium","Low"]
+                
         //        tfActivityName.textAlignment = .right
         //        tfStartDate.textAlignment = .right
+                
+                tfStartDate.text = dateConverter(tanggal: (activity?.startDate)!)
+                datePicker.setDate(activity?.startDate ?? Date(), animated: true)
+                tfDeadlineDate.text = dateConverter(tanggal: (activity?.endDate)!)
+                datePickerDeadline.setDate(activity?.endDate ?? Date(), animated: true)
+                tfActivityName.text = activity?.title
+                switch activity?.priority {
+                case 3:
+                    tfPriority.text = "High"
+                case 2:
+                    tfPriority.text = "Medium"
+                case 1:
+                    tfPriority.text = "Low"
+                default:
+                    tfPriority.text = "High"
+                }
+                
+                
+                tvActivityDescription.delegate = self
+                
+                if activity?.notes == nil{
+                    tvActivityDescription.text = placeholder
+                    tvActivityDescription.textColor = hexStringToUIColor(hex: "C6C6C8")
+                }else{
+                    tvActivityDescription.text = activity?.notes
+                    tvActivityDescription.textColor = UIColor.black
+                }
+                
+                
+                
+                
                 
                 self.pickerView.delegate = self
                 self.pickerView.dataSource = self
@@ -45,7 +82,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
                 createDatePickerForDeadline()
                 createPriority()
                 
-                tvActivityDescription.textColor = hexStringToUIColor(hex: "C6C6C8")
+                
                 activityDescriptionSetting()
             }
             
@@ -54,8 +91,8 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
 
                 view.addGestureRecognizer(tap)
                 
-                tvActivityDescription.delegate = self
-                tvActivityDescription.text = placeholder
+                
+                
             }
             
             @objc func dismissKeyboard() {
@@ -138,7 +175,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
 
                 
                 tfDeadlineDate.inputAccessoryView = toolbar
-                tfDeadlineDate.inputView = datePicker
+                tfDeadlineDate.inputView = datePickerDeadline
                 
                 
                 //date picker mode
@@ -205,5 +242,63 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
                     alpha: CGFloat(1.0)
                 )
             }
-
+    
+    func priorityIndexGenerator() -> Int{
+        switch tfPriority.text {
+        case "High":
+            priorityIndex = 3
+        case "Medium":
+            priorityIndex = 2
+        case "Low":
+            priorityIndex = 1
+        default:
+            priorityIndex = 0
         }
+        return priorityIndex
+    }
+
+    @IBAction func btnSave(_ sender: Any) {
+        
+        if tfActivityName.text?.isEmpty == true {
+            alertValidation("Please fill your Activity Name")
+        }else if tfStartDate.text?.isEmpty == true{
+            alertValidation("Please fill your Start Date")
+        }else if !(datePicker.date >= Date()){
+            alertValidation("Your Start Date can't be below from Current Date")
+        }else if tfDeadlineDate.text?.isEmpty == true{
+            alertValidation("Please fill your Deadline Date")
+        }else if datePicker.date >= datePickerDeadline.date{
+            alertValidation("Your Start Date can't be above from Deadline Date")
+        }else if priorityIndexGenerator() == 0{
+            alertValidation("Please Choose your activity priority")
+        }else if tvActivityDescription.text.isEmpty || tvActivityDescription.text == placeholder{
+            alertValidation("Please fill your Activity Description")
+        }else{
+        
+        
+            activity?.title = tfActivityName.text
+            activity?.startDate = datePicker.date
+            activity?.endDate = datePickerDeadline.date
+            activity?.notes = tvActivityDescription.text
+            activity?.isDone = false
+            activity?.priority = NSNumber(value: priorityIndexGenerator())
+            
+        
+        
+            db.save()
+            tableView.reloadData()
+        }
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func btnCancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    func alertValidation(_ input:String){
+        let alert = UIAlertController(title: "Message Alert", message: input, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+}
