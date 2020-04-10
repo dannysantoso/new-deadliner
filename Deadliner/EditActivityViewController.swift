@@ -24,6 +24,8 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             @IBOutlet weak var tfDeadlineDate: UITextField!
             
             var pickerData: [String] = [String]()
+    
+            var activity: Activity? = nil
             
             var result = ""
             

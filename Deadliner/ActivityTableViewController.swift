@@ -146,7 +146,7 @@ class ActivityTableViewController: UITableViewController {
         }
         
         let editAction = UIContextualAction(style: .normal, title: "Edit"){_,_,_ in
-            print("Edit")
+            self.performSegue(withIdentifier: "toEdit", sender: self.activities[indexPath.row])
         }
         
         if segmentedControl.selectedSegmentIndex == 1 {
@@ -198,14 +198,15 @@ class ActivityTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? EditActivityViewController {
+            destination.activity = sender as? Activity
+        }
     }
-    */
+    
 
 }
