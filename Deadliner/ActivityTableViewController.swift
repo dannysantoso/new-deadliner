@@ -8,7 +8,10 @@
 
 import UIKit
 
-class ActivityTableViewController: UITableViewController {
+protocol ModalHandler {
+    func modalDismissed()
+}
+class ActivityTableViewController: UITableViewController, ModalHandler {
     var db = DBManager()
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -19,29 +22,7 @@ class ActivityTableViewController: UITableViewController {
         super.viewDidLoad()
         segmentedControl.selectedSegmentIndex = 1
         
-//        let newActivity = Activity(context: db.context)
-//        newActivity.title = "activity 1"
-//        newActivity.priority = 3
-//        newActivity.isDone = false
-//        newActivity.startDate = Date().addingTimeInterval(-500000000)
-//        newActivity.endDate = Date().addingTimeInterval(-500)
-//
-//        db.save()
-//
-
-//        let newActivity2 = Activity(context: db.context)
-//        newActivity2.title = "activity 2"
-//        newActivity2.priority = 2
-//        newActivity2.isDone = false
-//        newActivity2.startDate = Date().addingTimeInterval(-500000000)
-//        newActivity2.endDate = Date().addingTimeInterval(500000000000)
-//
-//        db.save()
-        
-//        activities = db.fetch()
-        let predicate = NSPredicate(format: "startDate < %@ AND isDone == false", Date() as NSDate)
-        activities = db.fetch(withPredicate: predicate)
-        
+        refreshData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -49,6 +30,16 @@ class ActivityTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    @IBAction func toAddActivity(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "toAdd", sender: nil)
+    }
+    
+    //MARK: - Modal Dismissed Handler
+    
+    func modalDismissed() {
+        refreshData()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -62,7 +53,10 @@ class ActivityTableViewController: UITableViewController {
 
     
     @IBAction func indexChanged(_ sender: UISegmentedControl) {
-        
+        refreshData()
+    }
+    
+    func refreshData() {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             let predicate = NSPredicate(format: "startDate > %@", Date() as NSDate)
@@ -211,8 +205,8 @@ class ActivityTableViewController: UITableViewController {
             destination.activity = sender as? Activity
         } else if let destination = segue.destination as? DetailView {
             destination.activity = sender as? Activity
+        } else if let destination = segue.destination as? AddActivityViewController{
+            destination.delegete = self
         }
     }
-    
-
 }

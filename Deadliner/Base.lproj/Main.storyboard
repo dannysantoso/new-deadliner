@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zOY-CU-R6c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zOY-CU-R6c">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -90,7 +90,7 @@
                     <navigationItem key="navigationItem" title="My Activity" id="bjm-v0-JZs">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="zcB-1K-bwv">
                             <connections>
-                                <segue destination="qas-Cx-evd" kind="presentation" identifier="toAdd" id="rzd-n5-LHH"/>
+                                <action selector="toAddActivity:" destination="djl-rT-VWf" id="Udb-9w-uq2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -99,6 +99,7 @@
                         <outlet property="tableView" destination="een-b5-qHk" id="LU0-Xw-cX7"/>
                         <segue destination="9XY-1H-H5a" kind="presentation" identifier="toEdit" id="Crl-bF-o1G"/>
                         <segue destination="1Zi-ef-WuF" kind="show" identifier="toDetail" id="1V7-PH-L7I"/>
+                        <segue destination="qas-Cx-evd" kind="presentation" identifier="toAdd" id="mAP-wm-xVe"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BH0-zZ-Fm5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -502,7 +503,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mor-ay-wqz">
-                                <rect key="frame" x="20" y="461" width="347" height="21"/>
+                                <rect key="frame" x="20" y="461" width="374" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
@@ -570,12 +571,12 @@
             <point key="canvasLocation" x="1860.8695652173915" y="866.51785714285711"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pencil" catalog="system" width="64" height="56"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
+        <image name="trash" catalog="system" width="60" height="64"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Crl-bF-o1G"/>
     </inferredMetricsTieBreakers>
-    <resources>
-        <image name="pencil" catalog="system" width="128" height="113"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="trash" catalog="system" width="121" height="128"/>
-    </resources>
 </document>

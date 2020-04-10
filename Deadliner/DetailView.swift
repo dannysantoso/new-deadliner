@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailView: UIViewController {
-
+    
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var endDate: UILabel!
     @IBOutlet weak var priorityLevel: UILabel!
@@ -54,14 +54,14 @@ class DetailView: UIViewController {
     @IBAction func deleteActivity(_ sender: Any) {
         let alert = UIAlertController(title: "Delete Activity", message: "You are about to delete this activity, are you sure?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
-                  switch action.style{
-                  case .destructive:
-                    self.db.remove(self.activity!)
-                    self.navigationController?.popViewController(animated: true)
-                    break
-                  default:
-                    break
-        }}))
+            switch action.style{
+            case .destructive:
+                self.db.remove(self.activity!)
+                self.navigationController?.popViewController(animated: true)
+                break
+            default:
+                break
+            }}))
         
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {action in
             switch action.style{
