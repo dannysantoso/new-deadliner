@@ -11,7 +11,7 @@ import Foundation
 
 /*
  How to use:
- 1. call funcition calculateDate:
+ 1. call function calculateDate:
  
      if you want to calculate date length to the time task has to be done:
      - calculateDate(start: Date(), end: startDate)

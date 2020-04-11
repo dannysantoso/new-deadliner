@@ -44,12 +44,12 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
     static private func buildNotification(_ activity:Activity, identifier:notifIdentifier ) {
         let content = UNMutableNotificationContent()
         switch identifier {
-            case .cmo:
-                content.title = "Coming Up"
-                content.body = "\(activity.title!) is going to start soon"
-            case .end:
-                content.title = "Deadline"
-                content.body = "\(activity.title!) is going to due soon"
+        case .cmo:
+            content.title = "Coming Up"
+            content.body = "\(activity.title!) is going to start soon"
+        case .end:
+            content.title = "Deadline"
+            content.body = "\(activity.title!) is going to due soon"
         }
         content.sound = .default
         let badge = UserDefaults.standard.integer(forKey: "badge") + 1
@@ -104,12 +104,12 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         switch response.actionIdentifier {
-            case "Open":
-                print("Open")
-            case "Delete":
-                print("Delete")
-            default:
-                print("Not Both")
+        case "Open":
+            print("Open")
+        case "Delete":
+            print("Delete")
+        default:
+            print("Not Both")
         }
         completionHandler()
     }

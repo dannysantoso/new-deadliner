@@ -8,15 +8,25 @@
 
 import UIKit
 
-class ActivityTableViewController: UITableViewController {
+protocol BackHandler {
+    func onBackHome()
+}
+class ActivityTableViewController: UITableViewController, BackHandler {
     var db = DBManager()
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
+    var activities: [Activity] = []
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        segmentedControl.selectedSegmentIndex = 1
         
+        refreshData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,6 +34,16 @@ class ActivityTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    @IBAction func toAddActivity(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "toAdd", sender: nil)
+    }
+    
+    //MARK: - Modal Dismissed Handler
+    
+    func onBackHome() {
+        refreshData()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -32,23 +52,29 @@ class ActivityTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return activities.count
     }
 
     
     @IBAction func indexChanged(_ sender: UISegmentedControl) {
-        
+        refreshData()
+    }
+    
+    func refreshData() {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            print("Coming")
+            let predicate = NSPredicate(format: "startDate > %@", Date() as NSDate)
+            activities = db.fetch(withPredicate: predicate)
             self.tableView.reloadData()
             break
         case 1:
-            print("Ongoing")
+            let predicate = NSPredicate(format: "startDate < %@ AND isDone == false", Date() as NSDate)
+            activities = db.fetch(withPredicate: predicate)
             self.tableView.reloadData()
             break
         case 2:
-            print("Done")
+            let predicate = NSPredicate(format: "startDate < %@ AND isDone == true", Date() as NSDate)
+            activities = db.fetch(withPredicate: predicate)
             self.tableView.reloadData()
             break
         default:
@@ -59,9 +85,50 @@ class ActivityTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "activityCell", for: indexPath) as? ActivityTableViewCell{
 
-            cell.nameActivity?.text = "Hallo"
-            cell.priorityActivity?.text = "Low"
-            cell.setTimerActivity(timer: " 2 Days")
+            cell.nameActivity.text = activities[indexPath.row].title
+            cell.nameActivity.sizeToFit()
+            
+            switch activities[indexPath.row].priority {
+            case 3:
+                cell.priorityActivity.text = "High"
+                cell.priorityActivity.backgroundColor = .red
+                break
+            case 2:
+                cell.priorityActivity.text = "Medium"
+                cell.priorityActivity.backgroundColor = .orange
+                break
+            case 1:
+                cell.priorityActivity.text = "Low"
+                cell.priorityActivity.backgroundColor = .blue
+                break
+            default:
+                break
+            }
+            
+            switch segmentedControl.selectedSegmentIndex {
+            case 0:
+                cell.labelTimer.isHidden = false
+                cell.labelTimer.text = "Start in"
+                cell.timerActivity.text = calculateDate(start: Date(), end: activities[indexPath.row].startDate ?? Date())
+                break
+            case 1:
+                cell.labelTimer.isHidden = false
+                if activities[indexPath.row].endDate ?? Date() < Date() {
+                    cell.labelTimer.isHidden = true
+                    cell.timerActivity.text = "Times up"
+                } else{
+                    cell.labelTimer.text = "Deadline in"
+                    cell.timerActivity.text = calculateDate(start: Date(), end: activities[indexPath.row].endDate ?? Date())
+                }
+                break
+            case 2:
+                cell.labelTimer.isHidden = true
+                cell.timerActivity.text = "Finish"
+                break
+            default:
+                break
+            }
+            
             
             return cell
         }
@@ -71,22 +138,31 @@ class ActivityTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){_,_,_ in
-            print("DELETE")
+            self.db.remove(self.activities[indexPath.row])
+            self.activities.remove(at: indexPath.row)
+            tableView.reloadData()
         }
         
         let editAction = UIContextualAction(style: .normal, title: "Edit"){_,_,_ in
-            print("Edit")
+            self.performSegue(withIdentifier: "toEdit", sender: self.activities[indexPath.row])
         }
         
         if segmentedControl.selectedSegmentIndex == 1 {
             let finishAction = UIContextualAction(style: .normal, title: "Finish"){_,_,_ in
-                print("Finish")
+                self.activities[indexPath.row].isDone = true
+                self.db.save()
+                self.activities.remove(at: indexPath.row)
+                tableView.reloadData()
             }
             return UISwipeActionsConfiguration(actions: [deleteAction, editAction, finishAction])
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "toDetail", sender: activities[indexPath.row])
     }
 
     /*
@@ -124,14 +200,19 @@ class ActivityTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let destination = segue.destination as? EditActivityViewController {
+            destination.activity = sender as? Activity
+            destination.delegate = self
+        } else if let destination = segue.destination as? DetailView {
+            destination.delegate = self
+            destination.activity = sender as? Activity
+        } else if let destination = segue.destination as? AddActivityViewController{
+            destination.delegate = self
+        } 
     }
-    */
-
 }
