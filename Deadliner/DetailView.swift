@@ -21,6 +21,7 @@ class DetailView: UIViewController {
     var db = DBManager()
     var delegate: BackHandler?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         priorityLevel.layer.cornerRadius = 5
