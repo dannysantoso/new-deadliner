@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailView: UIViewController {
+class DetailView: UIViewController, BackHandler {
     
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var endDate: UILabel!
@@ -26,6 +26,15 @@ class DetailView: UIViewController {
         super.viewDidLoad()
         priorityLevel.layer.cornerRadius = 5
         priorityLevel.layer.masksToBounds = true
+        
+        initData()
+    }
+    
+    func onBackHome() {
+        initData()
+    }
+    
+    func initData(){
         startDate.text = dateConverter(tanggal: (activity?.startDate)!)
         endDate.text = dateConverter(tanggal: (activity?.endDate)!)
         activityTitle.text = activity?.title
@@ -46,7 +55,6 @@ class DetailView: UIViewController {
             break
         }
         taskDescription.text = activity?.notes
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -84,6 +92,7 @@ class DetailView: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? EditActivityViewController {
             destination.activity = sender as? Activity
+            destination.delegate = self
         }
     }
     

@@ -207,11 +207,12 @@ class ActivityTableViewController: UITableViewController, BackHandler {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? EditActivityViewController {
             destination.activity = sender as? Activity
+            destination.delegate = self
         } else if let destination = segue.destination as? DetailView {
             destination.delegate = self
             destination.activity = sender as? Activity
         } else if let destination = segue.destination as? AddActivityViewController{
             destination.delegate = self
-        }
+        } 
     }
 }

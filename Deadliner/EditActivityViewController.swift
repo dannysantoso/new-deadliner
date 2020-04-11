@@ -31,6 +31,8 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             
             var result = ""
     
+    var delegate: BackHandler?
+    
             var db = DBManager()
             
             override func viewDidLoad() {
@@ -263,8 +265,6 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             alertValidation("Please fill your Activity Name")
         }else if tfStartDate.text?.isEmpty == true{
             alertValidation("Please fill your Start Date")
-        }else if !(datePicker.date >= Date()){
-            alertValidation("Your Start Date can't be below from Current Date")
         }else if tfDeadlineDate.text?.isEmpty == true{
             alertValidation("Please fill your Deadline Date")
         }else if datePicker.date >= datePickerDeadline.date{
@@ -286,14 +286,17 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
         
         
             db.save()
-            tableView.reloadData()
         }
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true){
+            self.delegate?.onBackHome()
+        }
         
     }
     
     @IBAction func btnCancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true){
+            self.delegate?.onBackHome()
+        }
     }
     func alertValidation(_ input:String){
         let alert = UIAlertController(title: "Message Alert", message: input, preferredStyle: .alert)
