@@ -43,31 +43,32 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
     
     static private func buildNotification(_ activity:Activity, identifier:notifIdentifier ) {
         let content = UNMutableNotificationContent()
+        let badge = UserDefaults.standard.integer(forKey: "badge") + 1
         switch identifier {
         case .cmo:
-            content.title = "Coming Up"
-            content.body = "\(activity.title!) is going to start soon"
+            content.body = "was going to start soon"
         case .end:
-            content.title = "Deadline"
-            content.body = "\(activity.title!) is going to due soon"
+            content.body = "was going to due soon"
         }
+        content.title = activity.title!
         content.sound = .default
-        let badge = UserDefaults.standard.integer(forKey: "badge") + 1
         content.badge = NSNumber(value: badge)
+        content.categoryIdentifier = configureNotifAction(identifier: identifier)
         UserDefaults.standard.set(badge, forKey: "badge")
-        content.categoryIdentifier = "DeadlinerNotification"
         let timeInterval =
             identifier == .cmo
                 ? activity.startDate!.timeIntervalSinceNow
                 : activity.endDate!.timeIntervalSinceNow
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
-        let request = UNNotificationRequest(
-            identifier: "\(identifier.rawValue)\(activity.objectID)",
-            content: content,
-            trigger: trigger)
-        self.notificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Error \(error.localizedDescription)")
+        if timeInterval >= 0 {
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+            let request = UNNotificationRequest(
+                identifier: "\(identifier.rawValue)\(activity.objectID)",
+                content: content,
+                trigger: trigger)
+            self.notificationCenter.add(request) { (error) in
+                if let error = error {
+                    print("Error \(error.localizedDescription)")
+                }
             }
         }
     }
@@ -86,11 +87,24 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
     }
     
     // Configuring Action (Button) for notification
-    static func configureNotifAction() {
-        let openApps = UNNotificationAction(identifier: "Open", title: "Open In Apps", options: [])
-        let deleteAction = UNNotificationAction(identifier: "Delete", title: "Delete", options: [.destructive])
-        let category = UNNotificationCategory(identifier: "DeadlinerNotifications", actions: [openApps, deleteAction], intentIdentifiers: [], options: [])
+    private static func configureNotifAction(identifier:notifIdentifier) -> String {
+        let remindAction = UNNotificationAction(identifier: "Remind", title: "Remind in 1 day", options: [])
+        let markAsDoneAction = UNNotificationAction(identifier: "Mark", title: "Mark As done", options: [])
+        var category:UNNotificationCategory
+        switch identifier {
+            case .end:
+                category = UNNotificationCategory(identifier: "DeadlinerNotificationsEND",
+                actions: [remindAction, markAsDoneAction],
+                intentIdentifiers: [],
+                options: [])
+            default:
+                category = UNNotificationCategory(identifier: "DeadlinerNotificationsCMO",
+                actions: [remindAction],
+                intentIdentifiers: [],
+                options: [])
+        }
         self.notificationCenter.setNotificationCategories([category])
+        return category.identifier
     }
     
     // Delegation Respond to Notification
@@ -104,9 +118,9 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         switch response.actionIdentifier {
-        case "Open":
+        case "Remind":
             print("Open")
-        case "Delete":
+        case "Mark":
             print("Delete")
         default:
             print("Not Both")

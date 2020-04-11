@@ -70,6 +70,7 @@ class DetailView: UIViewController, BackHandler {
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
             switch action.style{
             case .destructive:
+                Notification.removeNotification(self.activity!)
                 self.db.remove(self.activity!)
                 self.navigationController?.popViewController(animated: true)
                 break

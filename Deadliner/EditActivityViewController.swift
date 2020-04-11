@@ -283,7 +283,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             activity?.isDone = false
             activity?.priority = NSNumber(value: priorityIndexGenerator())
             
-        
+            Notification.editNotification(activity!)
         
             db.save()
         }

@@ -229,9 +229,7 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
             newActivity.notes = tvActivityDescription.text
             newActivity.isDone = false
             newActivity.priority = NSNumber(value: priorityIndexGenerator())
-            
-            
-            
+            Notification.addNotification(newActivity)
             db.save()
         }
         dismiss(animated: true){
