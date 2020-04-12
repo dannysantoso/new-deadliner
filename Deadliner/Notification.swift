@@ -8,6 +8,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     let options: UNAuthorizationOptions = [.alert, .sound, .badge]
     let notificationCenter = UNUserNotificationCenter.current()
     static var instance:Notification?
+    private let REMINDER_TIME = 3
     
     
     enum notifIdentifier: String{
@@ -48,14 +49,14 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     }
     
     func removeBadge() {
-        let currentNotif =  UIApplication.shared.applicationIconBadgeNumber
-        let badgeCounter = UserDefaults.standard.integer(forKey: "badge") - currentNotif
-        UserDefaults.standard.set(
-            badgeCounter < 0
-                ? 0
-                : badgeCounter,
-            forKey: "badge")
-        UIApplication.shared.applicationIconBadgeNumber = 0
+//        let currentNotif =  UIApplication.shared.applicationIconBadgeNumber
+//        let badgeCounter = UserDefaults.standard.integer(forKey: "badge") - currentNotif
+//        UserDefaults.standard.set(
+//            badgeCounter < 0
+//                ? 0
+//                : badgeCounter,
+//            forKey: "badge")
+//        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     private func buildNotification(_ activity:Activity, identifier:notifIdentifier ) {
@@ -71,7 +72,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
         content.sound = .default
         content.badge = NSNumber(value: badge)
         content.categoryIdentifier = configureNotifAction(identifier: identifier)
-        content.userInfo["activity"] = activity.objectID.uriRepresentation().absoluteString
+        content.userInfo["activity"] = activity.id!
         UserDefaults.standard.set(badge, forKey: "badge")
         let timeInterval =
             identifier == .cmo
@@ -80,7 +81,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
         if timeInterval >= 0 {
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
             let request = UNNotificationRequest(
-                identifier: "\(identifier.rawValue)\(activity.objectID)",
+                identifier: "\(identifier.rawValue)\(activity.id!)",
                 content: content,
                 trigger: trigger)
             notificationCenter.add(request) { (error) in
@@ -148,7 +149,9 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     private func rescheduleNotification(_ notificationRequest:UNNotificationRequest, _ center: UNUserNotificationCenter) {
         let content = notificationRequest.content
         let identifier = notificationRequest.identifier
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(
+            timeInterval: TimeInterval(self.REMINDER_TIME),
+            repeats: false)
         let request = UNNotificationRequest(
             identifier: identifier,
             content: content,
@@ -161,7 +164,14 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     }
     
     private func markActivityAsDone(_ notificationRequest:UNNotificationRequest) {
-        //will make activity marked
+        let activityId = notificationRequest.content.userInfo["activity"] as! String
+        var db = DBManager()
+        let predicate = NSPredicate(format: "id == %@",activityId)
+        let activity = db.fetch(withPredicate: predicate)[0]
+        activity.isDone = true
+        db.save(object: activity, operation: .update)
     }
     
 }
+
+

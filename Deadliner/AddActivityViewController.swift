@@ -215,6 +215,12 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
             newActivity.isDone = false
             newActivity.priority = NSNumber(value: priorityIndexGenerator())
             print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+            
+            //for notification development purpose remember to delete
+            newActivity.startDate = Date.init(timeIntervalSinceNow: 3)
+            newActivity.endDate = Date.init(timeIntervalSinceNow: 6)
+            // remember to delete code Above
+            
             db.save(object: newActivity, operation: .add)
         }
         

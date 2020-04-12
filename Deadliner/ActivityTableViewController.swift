@@ -187,11 +187,11 @@ extension ActivityTableViewController {
     }
     
     private func checkActivityDate(activity: Activity) {
-        let now = Date()
+//        let now = Date()
         
-        activity.isDone = now >= activity.endDate! ? true : false
+//        activity.isDone = now >= activity.endDate! ? true : false
         
-        db.save(object: activity, operation: .update)
+//        db.save(object: activity, operation: .update)
         
         refreshData()
         self.tableView.reloadData()
