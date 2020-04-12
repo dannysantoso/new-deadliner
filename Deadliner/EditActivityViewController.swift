@@ -89,7 +89,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             }
             
             func activityDescriptionSetting(){
-                let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+                let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
 
                 view.addGestureRecognizer(tap)
                 

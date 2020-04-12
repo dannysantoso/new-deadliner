@@ -55,7 +55,7 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     
     
     func activityDescriptionSetting(){
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         
         view.addGestureRecognizer(tap)
         
@@ -204,40 +204,28 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     
     @IBAction func btnSave(_ sender: Any) {
         
-        
-        
-        if tfActivityName.text?.isEmpty == true {
-            alertValidation("Please fill your Activity Name")
-        }else if tfStartDate.text?.isEmpty == true{
-            alertValidation("Please fill your Start Date")
-        }else if !(datePicker.date >= Date()){                    alertValidation("Your Start Date can't be below from Current Date")
-        }else if tfDeadlineDate.text?.isEmpty == true{
-            alertValidation("Please fill your Deadline Date")
-        }else if datePicker.date >= datePickerDeadline.date{
-            alertValidation("Your Start Date can't be above from Deadline Date")
-        }else if priorityIndexGenerator() == 0{
-            alertValidation("Please Choose your activity priority")
-        }else if tvActivityDescription.text.isEmpty || tvActivityDescription.text == placeholder{
-            alertValidation("Please fill your Activity Description")
-        }else{
-            
-            
+        if validateUserInput() {
+            let uuidString = NSUUID().uuidString.split(separator: "-").first!
+            let uuidActivity = tfActivityName.text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             let newActivity = Activity(context: db.context)
+            
+            newActivity.id = "\(uuidString)_\(uuidActivity)"
             newActivity.title = tfActivityName.text
             newActivity.startDate = datePicker.date
             newActivity.endDate = datePickerDeadline.date
             newActivity.notes = tvActivityDescription.text
             newActivity.isDone = false
             newActivity.priority = NSNumber(value: priorityIndexGenerator())
+            print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
             db.save(object: newActivity, operation: .add)
         }
+        
         dismiss(animated: true){
             self.delegate?.onBackHome()
         }
         
-        //                print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
     }
+    
     @IBAction func btnCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -273,4 +261,31 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
         )
     }
     
+}
+
+
+// MARK: - Functionalities
+extension AddActivityViewController {
+    private func validateUserInput() -> Bool {
+        var value = false
+        if tfActivityName.text?.isEmpty == true {
+            alertValidation("Please fill your Activity Name")
+            
+        }else if tfStartDate.text?.isEmpty == true{
+            alertValidation("Please fill your Start Date")
+        }else if !(datePicker.date >= Date()){
+            alertValidation("Your Start Date can't be below from Current Date")
+        }else if tfDeadlineDate.text?.isEmpty == true{
+            alertValidation("Please fill your Deadline Date")
+        }else if datePicker.date >= datePickerDeadline.date{
+            alertValidation("Your Start Date can't be above from Deadline Date")
+        }else if priorityIndexGenerator() == 0{
+            alertValidation("Please Choose your activity priority")
+        }else if tvActivityDescription.text.isEmpty || tvActivityDescription.text == placeholder{
+            alertValidation("Please fill your Activity Description")
+        } else {
+            value = true
+        }
+        return value
+    }
 }

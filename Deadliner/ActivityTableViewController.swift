@@ -19,9 +19,7 @@ class ActivityTableViewController: UITableViewController, BackHandler {
     
     var activities: [Activity] = []
     
-    override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +36,7 @@ class ActivityTableViewController: UITableViewController, BackHandler {
         }
     }
     
+
     @IBAction func toAddActivity(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "toAdd", sender: nil)
     }
