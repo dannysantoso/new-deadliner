@@ -180,7 +180,7 @@ extension ActivityTableViewController {
                 
             default:
                 print("Invalid user action.")
-        }
+        } 
         
         activities = db.fetch(withPredicate: predicate)
         self.tableView.reloadData()

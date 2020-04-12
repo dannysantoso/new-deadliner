@@ -205,11 +205,9 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     @IBAction func btnSave(_ sender: Any) {
         
         if validateUserInput() {
-            let uuidString = NSUUID().uuidString.split(separator: "-").first!
-            let uuidActivity = tfActivityName.text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             let newActivity = Activity(context: db.context)
             
-            newActivity.id = "\(uuidString)_\(uuidActivity)"
+            newActivity.id = "\(NSUUID().uuidString.split(separator: "-").first!)"
             newActivity.title = tfActivityName.text
             newActivity.startDate = datePicker.date
             newActivity.endDate = datePickerDeadline.date
