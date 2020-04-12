@@ -9,7 +9,7 @@
 import UIKit
 
 class ActivityTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var nameActivity: UILabel!
     @IBOutlet weak var priorityActivity: UILabel!{
         didSet{
@@ -18,29 +18,16 @@ class ActivityTableViewCell: UITableViewCell {
         }
     }
     @IBOutlet weak var timerActivity: UILabel!
+    @IBOutlet weak var labelTimer: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
-    }
-
-    func setTimerActivity(timer: String){
-        let attachment = NSTextAttachment()
-        let icon = UIImage(systemName: "timer")
-        attachment.image = icon
-        
-        let image = NSAttributedString(attachment: attachment)
-        
-        let full = NSMutableAttributedString()
-        full.append(image)
-        full.append(NSAttributedString(string: timer))
-        
-        timerActivity.attributedText = full
     }
 }

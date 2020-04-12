@@ -14,6 +14,14 @@
 		422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 422D0762243C6ADF0092763D /* LaunchScreen.storyboard */; };
 		422D076F243C6ADF0092763D /* DeadlinerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D076E243C6ADF0092763D /* DeadlinerTests.swift */; };
 		422D077A243C6ADF0092763D /* DeadlinerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0779243C6ADF0092763D /* DeadlinerUITests.swift */; };
+		426BE10824406686006827CC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BE10724406686006827CC /* Notification.swift */; };
+		867ED2C4243F34CF0028E788 /* dateCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED2C3243F34CF0028E788 /* dateCalculation.swift */; };
+		867ED2C6243F36670028E788 /* detailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 867ED2C5243F36670028E788 /* detailView.storyboard */; };
+		867ED2C8243F36C80028E788 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED2C7243F36C80028E788 /* DetailView.swift */; };
+		86C70586244086520005D3B7 /* dateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C70585244086520005D3B7 /* dateConverter.swift */; };
+		E1672B39243F1CA500D788AD /* AddActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1672B38243F1CA500D788AD /* AddActivityViewController.swift */; };
+		E1672B3B243F1D6C00D788AD /* EditActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1672B3A243F1D6C00D788AD /* EditActivityViewController.swift */; };
+		E1672B40243F1E6200D788AD /* Add.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1672B3F243F1E6200D788AD /* Add.storyboard */; };
 		F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9139E02243C86A000F2118F /* ActivityTableViewController.swift */; };
 		F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */; };
 		FF11EBA2243F5A75002C9E3A /* Deadliner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF11EB9E243F5A75002C9E3A /* Deadliner.xcdatamodeld */; };
@@ -53,6 +61,14 @@
 		422D0775243C6ADF0092763D /* DeadlinerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeadlinerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		422D0779243C6ADF0092763D /* DeadlinerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinerUITests.swift; sourceTree = "<group>"; };
 		422D077B243C6ADF0092763D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		426BE10724406686006827CC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		867ED2C3243F34CF0028E788 /* dateCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dateCalculation.swift; sourceTree = "<group>"; };
+		867ED2C5243F36670028E788 /* detailView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = detailView.storyboard; sourceTree = "<group>"; };
+		867ED2C7243F36C80028E788 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		86C70585244086520005D3B7 /* dateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dateConverter.swift; sourceTree = "<group>"; };
+		E1672B38243F1CA500D788AD /* AddActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityViewController.swift; sourceTree = "<group>"; };
+		E1672B3A243F1D6C00D788AD /* EditActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditActivityViewController.swift; sourceTree = "<group>"; };
+		E1672B3F243F1E6200D788AD /* Add.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Add.storyboard; sourceTree = "<group>"; };
 		F9139E02243C86A000F2118F /* ActivityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
 		FF11EB9F243F5A75002C9E3A /* Deadliner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Deadliner.xcdatamodel; sourceTree = "<group>"; };
@@ -109,15 +125,23 @@
 		422D0753243C6ADE0092763D /* Deadliner */ = {
 			isa = PBXGroup;
 			children = (
+				E1672B3F243F1E6200D788AD /* Add.storyboard */,
 				FF11EB9D243F5A59002C9E3A /* Models */,
 				F9139E02243C86A000F2118F /* ActivityTableViewController.swift */,
 				422D0754243C6ADE0092763D /* AppDelegate.swift */,
+				426BE10724406686006827CC /* Notification.swift */,
 				422D0756243C6ADE0092763D /* SceneDelegate.swift */,
 				422D075A243C6ADE0092763D /* Main.storyboard */,
+				E1672B3A243F1D6C00D788AD /* EditActivityViewController.swift */,
+				E1672B38243F1CA500D788AD /* AddActivityViewController.swift */,
 				422D0760243C6ADF0092763D /* Assets.xcassets */,
 				422D0762243C6ADF0092763D /* LaunchScreen.storyboard */,
 				422D0765243C6ADF0092763D /* Info.plist */,
 				F945407A243F05CF00CD629E /* ActivityTableViewCell.swift */,
+				867ED2C3243F34CF0028E788 /* dateCalculation.swift */,
+				867ED2C5243F36670028E788 /* detailView.storyboard */,
+				867ED2C7243F36C80028E788 /* DetailView.swift */,
+				86C70585244086520005D3B7 /* dateConverter.swift */,
 			);
 			path = Deadliner;
 			sourceTree = "<group>";
@@ -255,7 +279,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				867ED2C6243F36670028E788 /* detailView.storyboard in Resources */,
 				422D0764243C6ADF0092763D /* LaunchScreen.storyboard in Resources */,
+				E1672B40243F1E6200D788AD /* Add.storyboard in Resources */,
 				422D0761243C6ADF0092763D /* Assets.xcassets in Resources */,
 				FF11EBA6243F5BCA002C9E3A /* README.txt in Resources */,
 				422D075C243C6ADE0092763D /* Main.storyboard in Resources */,
@@ -284,12 +310,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9139E03243C86A000F2118F /* ActivityTableViewController.swift in Sources */,
+				86C70586244086520005D3B7 /* dateConverter.swift in Sources */,
+				867ED2C4243F34CF0028E788 /* dateCalculation.swift in Sources */,
 				422D0755243C6ADE0092763D /* AppDelegate.swift in Sources */,
+				867ED2C8243F36C80028E788 /* DetailView.swift in Sources */,
 				FF11EBA3243F5A75002C9E3A /* DBConstants.swift in Sources */,
 				FF11EBA4243F5A75002C9E3A /* DBManager.swift in Sources */,
+				426BE10824406686006827CC /* Notification.swift in Sources */,
 				F945407B243F05CF00CD629E /* ActivityTableViewCell.swift in Sources */,
+				E1672B39243F1CA500D788AD /* AddActivityViewController.swift in Sources */,
 				FF11EBA2243F5A75002C9E3A /* Deadliner.xcdatamodeld in Sources */,
 				422D0757243C6ADE0092763D /* SceneDelegate.swift in Sources */,
+				E1672B3B243F1D6C00D788AD /* EditActivityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
