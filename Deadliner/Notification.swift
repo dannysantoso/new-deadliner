@@ -1,18 +1,35 @@
 import Foundation
 import UIKit
+import CoreData
 import UserNotifications
 
-class Notification:NSObject, UNUserNotificationCenterDelegate{
+class Notification:NSObject, UNUserNotificationCenterDelegate {
     
-    static var notificationCenter:UNUserNotificationCenter = UNUserNotificationCenter.current()
-    static var options: UNAuthorizationOptions = [.alert, .sound, .badge]
+    let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+    let notificationCenter = UNUserNotificationCenter.current()
+    static var instance:Notification?
+    
     
     enum notifIdentifier: String{
         case cmo = "CMO"
         case end = "END"
     }
     
-    static func requestNotificationAuth() {
+    static func getInstance() -> Notification {
+        if let fetchInstance = instance{
+            return fetchInstance
+        } else {
+            instance = Notification()
+            return instance!
+        }
+    }
+    
+    func notificationConfig() {
+        requestNotificationAuth()
+        removeBadge()
+    }
+    
+    func requestNotificationAuth() {
         notificationCenter.requestAuthorization(options: self.options) {
             (didAllow, error) in
             if !didAllow{
@@ -21,7 +38,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
         }
     }
     
-    static func checkNotificationAuth(){
+    func checkNotificationAuth(){
         notificationCenter.getNotificationSettings { (setting) in
             if setting.authorizationStatus != .authorized {
                 
@@ -30,7 +47,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
         
     }
     
-    static func removeBadge() {
+    func removeBadge() {
         let currentNotif =  UIApplication.shared.applicationIconBadgeNumber
         let badgeCounter = UserDefaults.standard.integer(forKey: "badge") - currentNotif
         UserDefaults.standard.set(
@@ -40,8 +57,8 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
             forKey: "badge")
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
-    
-    static private func buildNotification(_ activity:Activity, identifier:notifIdentifier ) {
+
+    private func buildNotification(_ activity:Activity, identifier:notifIdentifier ) {
         let content = UNMutableNotificationContent()
         let badge = UserDefaults.standard.integer(forKey: "badge") + 1
         switch identifier {
@@ -54,6 +71,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
         content.sound = .default
         content.badge = NSNumber(value: badge)
         content.categoryIdentifier = configureNotifAction(identifier: identifier)
+        content.userInfo["activity"] = activity.objectID.uriRepresentation().absoluteString
         UserDefaults.standard.set(badge, forKey: "badge")
         let timeInterval =
             identifier == .cmo
@@ -65,67 +83,85 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
                 identifier: "\(identifier.rawValue)\(activity.objectID)",
                 content: content,
                 trigger: trigger)
-            self.notificationCenter.add(request) { (error) in
+            notificationCenter.add(request) { (error) in
                 if let error = error {
                     print("Error \(error.localizedDescription)")
                 }
             }
         }
     }
-    
+
+
     static func addNotification(_ activity:Activity) {
-        buildNotification(activity, identifier: .cmo)
-        buildNotification(activity, identifier: .end)
+        let notification = Notification.getInstance()
+        notification.buildNotification(activity, identifier: .cmo)
+        notification.buildNotification(activity, identifier: .end)
     }
-    
+
     static func editNotification(_ activity:Activity) {
+        print(activity.objectID)
         addNotification(activity)
     }
-    
+
     static func removeNotification(_ activity:Activity) {
-        self.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["CMO\(activity.objectID)","END\(activity.objectID)"])
+        Notification.getInstance().notificationCenter.removePendingNotificationRequests(withIdentifiers: ["CMO\(activity.objectID)","END\(activity.objectID)"])
     }
-    
-    // Configuring Action (Button) for notification
-    private static func configureNotifAction(identifier:notifIdentifier) -> String {
+
+    private func configureNotifAction(identifier:notifIdentifier) -> String {
         let remindAction = UNNotificationAction(identifier: "Remind", title: "Remind in 1 day", options: [])
         let markAsDoneAction = UNNotificationAction(identifier: "Mark", title: "Mark As done", options: [])
-        var category:UNNotificationCategory
+        
+        let categoryEnd = UNNotificationCategory(identifier: "DeadlinerNotificationsEND",
+        actions: [remindAction, markAsDoneAction],
+        intentIdentifiers: [],
+        options: [])
+        let categoryCmo = UNNotificationCategory(identifier: "DeadlinerNotificationsCMO",
+        actions: [remindAction],
+        intentIdentifiers: [],
+        options: [])
+        self.notificationCenter.setNotificationCategories([categoryEnd,categoryCmo])
+        
         switch identifier {
-            case .end:
-                category = UNNotificationCategory(identifier: "DeadlinerNotificationsEND",
-                actions: [remindAction, markAsDoneAction],
-                intentIdentifiers: [],
-                options: [])
-            default:
-                category = UNNotificationCategory(identifier: "DeadlinerNotificationsCMO",
-                actions: [remindAction],
-                intentIdentifiers: [],
-                options: [])
+            case .end :
+                return categoryEnd.identifier
+            case .cmo :
+                return categoryCmo.identifier
         }
-        self.notificationCenter.setNotificationCategories([category])
-        return category.identifier
     }
     
-    // Delegation Respond to Notification
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(UNNotificationPresentationOptions.init([.alert, .badge]))
     }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let notificationRequest = response.notification.request
         switch response.actionIdentifier {
         case "Remind":
-            print("Open")
+            rescheduleNotification(notificationRequest, center)
         case "Mark":
-            print("Delete")
+            markActivityAsDone(notificationRequest)
         default:
-            print("Not Both")
+            print("error")
         }
-        completionHandler()
+    }
+    
+    private func rescheduleNotification(_ notificationRequest:UNNotificationRequest, _ center: UNUserNotificationCenter) {
+        let content = notificationRequest.content
+        let identifier = notificationRequest.identifier
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: identifier,
+            content: content,
+            trigger: trigger)
+        center.add(request) { (error) in
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func markActivityAsDone(_ notificationRequest:UNNotificationRequest) {
+        //will make activity marked
     }
     
 }

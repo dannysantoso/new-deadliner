@@ -15,6 +15,11 @@
 		422D076F243C6ADF0092763D /* DeadlinerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D076E243C6ADF0092763D /* DeadlinerTests.swift */; };
 		422D077A243C6ADF0092763D /* DeadlinerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422D0779243C6ADF0092763D /* DeadlinerUITests.swift */; };
 		426BE10824406686006827CC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BE10724406686006827CC /* Notification.swift */; };
+		426BE1102443125D006827CC /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426BE10F2443125D006827CC /* UserNotifications.framework */; };
+		426BE1122443125D006827CC /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 426BE1112443125D006827CC /* UserNotificationsUI.framework */; };
+		426BE1152443125D006827CC /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BE1142443125D006827CC /* NotificationViewController.swift */; };
+		426BE1182443125D006827CC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 426BE1162443125D006827CC /* MainInterface.storyboard */; };
+		426BE11C2443125D006827CC /* DeadlinerNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 426BE10D2443125D006827CC /* DeadlinerNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		867ED2C4243F34CF0028E788 /* dateCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED2C3243F34CF0028E788 /* dateCalculation.swift */; };
 		867ED2C6243F36670028E788 /* detailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 867ED2C5243F36670028E788 /* detailView.storyboard */; };
 		867ED2C8243F36C80028E788 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867ED2C7243F36C80028E788 /* DetailView.swift */; };
@@ -45,7 +50,28 @@
 			remoteGlobalIDString = 422D0750243C6ADE0092763D;
 			remoteInfo = Deadliner;
 		};
+		426BE11A2443125D006827CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 422D0749243C6ADE0092763D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 426BE10C2443125D006827CC;
+			remoteInfo = DeadlinerNotification;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		426BE1202443125D006827CC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				426BE11C2443125D006827CC /* DeadlinerNotification.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		422D0751243C6ADE0092763D /* Deadliner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadliner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +88,12 @@
 		422D0779243C6ADF0092763D /* DeadlinerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlinerUITests.swift; sourceTree = "<group>"; };
 		422D077B243C6ADF0092763D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		426BE10724406686006827CC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		426BE10D2443125D006827CC /* DeadlinerNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeadlinerNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		426BE10F2443125D006827CC /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		426BE1112443125D006827CC /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		426BE1142443125D006827CC /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		426BE1172443125D006827CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		426BE1192443125D006827CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		867ED2C3243F34CF0028E788 /* dateCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dateCalculation.swift; sourceTree = "<group>"; };
 		867ED2C5243F36670028E788 /* detailView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = detailView.storyboard; sourceTree = "<group>"; };
 		867ED2C7243F36C80028E788 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -99,6 +131,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		426BE10A2443125D006827CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				426BE1122443125D006827CC /* UserNotificationsUI.framework in Frameworks */,
+				426BE1102443125D006827CC /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -108,6 +149,8 @@
 				422D0753243C6ADE0092763D /* Deadliner */,
 				422D076D243C6ADF0092763D /* DeadlinerTests */,
 				422D0778243C6ADF0092763D /* DeadlinerUITests */,
+				426BE1132443125D006827CC /* DeadlinerNotification */,
+				426BE10E2443125D006827CC /* Frameworks */,
 				422D0752243C6ADE0092763D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,6 +161,7 @@
 				422D0751243C6ADE0092763D /* Deadliner.app */,
 				422D076A243C6ADF0092763D /* DeadlinerTests.xctest */,
 				422D0775243C6ADF0092763D /* DeadlinerUITests.xctest */,
+				426BE10D2443125D006827CC /* DeadlinerNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,6 +208,25 @@
 			path = DeadlinerUITests;
 			sourceTree = "<group>";
 		};
+		426BE10E2443125D006827CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				426BE10F2443125D006827CC /* UserNotifications.framework */,
+				426BE1112443125D006827CC /* UserNotificationsUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		426BE1132443125D006827CC /* DeadlinerNotification */ = {
+			isa = PBXGroup;
+			children = (
+				426BE1142443125D006827CC /* NotificationViewController.swift */,
+				426BE1162443125D006827CC /* MainInterface.storyboard */,
+				426BE1192443125D006827CC /* Info.plist */,
+			);
+			path = DeadlinerNotification;
+			sourceTree = "<group>";
+		};
 		FF11EB9D243F5A59002C9E3A /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,10 +248,12 @@
 				422D074D243C6ADE0092763D /* Sources */,
 				422D074E243C6ADE0092763D /* Frameworks */,
 				422D074F243C6ADE0092763D /* Resources */,
+				426BE1202443125D006827CC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				426BE11B2443125D006827CC /* PBXTargetDependency */,
 			);
 			name = Deadliner;
 			productName = Deadliner;
@@ -231,6 +296,23 @@
 			productReference = 422D0775243C6ADF0092763D /* DeadlinerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		426BE10C2443125D006827CC /* DeadlinerNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 426BE11D2443125D006827CC /* Build configuration list for PBXNativeTarget "DeadlinerNotification" */;
+			buildPhases = (
+				426BE1092443125D006827CC /* Sources */,
+				426BE10A2443125D006827CC /* Frameworks */,
+				426BE10B2443125D006827CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeadlinerNotification;
+			productName = DeadlinerNotification;
+			productReference = 426BE10D2443125D006827CC /* DeadlinerNotification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -252,6 +334,9 @@
 						CreatedOnToolsVersion = 11.3.1;
 						TestTargetID = 422D0750243C6ADE0092763D;
 					};
+					426BE10C2443125D006827CC = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 				};
 			};
 			buildConfigurationList = 422D074C243C6ADE0092763D /* Build configuration list for PBXProject "Deadliner" */;
@@ -270,6 +355,7 @@
 				422D0750243C6ADE0092763D /* Deadliner */,
 				422D0769243C6ADF0092763D /* DeadlinerTests */,
 				422D0774243C6ADF0092763D /* DeadlinerUITests */,
+				426BE10C2443125D006827CC /* DeadlinerNotification */,
 			);
 		};
 /* End PBXProject section */
@@ -299,6 +385,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		426BE10B2443125D006827CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				426BE1182443125D006827CC /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +435,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		426BE1092443125D006827CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				426BE1152443125D006827CC /* NotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -353,6 +455,11 @@
 			isa = PBXTargetDependency;
 			target = 422D0750243C6ADE0092763D /* Deadliner */;
 			targetProxy = 422D0776243C6ADF0092763D /* PBXContainerItemProxy */;
+		};
+		426BE11B2443125D006827CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 426BE10C2443125D006827CC /* DeadlinerNotification */;
+			targetProxy = 426BE11A2443125D006827CC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -371,6 +478,14 @@
 				422D0763243C6ADF0092763D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		426BE1162443125D006827CC /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				426BE1172443125D006827CC /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -493,6 +608,7 @@
 		422D077F243C6ADF0092763D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 87WHDY7XDH;
@@ -511,6 +627,7 @@
 		422D0780243C6ADF0092763D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 87WHDY7XDH;
@@ -610,6 +727,44 @@
 			};
 			name = Release;
 		};
+		426BE11E2443125D006827CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 87WHDY7XDH;
+				INFOPLIST_FILE = DeadlinerNotification/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.peter.Deadliner.DeadlinerNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		426BE11F2443125D006827CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 87WHDY7XDH;
+				INFOPLIST_FILE = DeadlinerNotification/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.peter.Deadliner.DeadlinerNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -645,6 +800,15 @@
 			buildConfigurations = (
 				422D0785243C6ADF0092763D /* Debug */,
 				422D0786243C6ADF0092763D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		426BE11D2443125D006827CC /* Build configuration list for PBXNativeTarget "DeadlinerNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				426BE11E2443125D006827CC /* Debug */,
+				426BE11F2443125D006827CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

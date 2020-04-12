@@ -229,6 +229,12 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
             newActivity.notes = tvActivityDescription.text
             newActivity.isDone = false
             newActivity.priority = NSNumber(value: priorityIndexGenerator())
+            
+            //for notification testing purpose
+            newActivity.startDate = Date.init(timeIntervalSinceNow: 5)
+            newActivity.endDate = Date.init(timeIntervalSinceNow: 20)
+            // please delete the code above
+            
             Notification.addNotification(newActivity)
             db.save()
         }
