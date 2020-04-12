@@ -197,7 +197,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
                 let formater = DateFormatter()
                 formater.dateFormat = "MMMM dd, yyyy hh:mm aa"
     //            formater.dateFormat = "dd.MM.yyyy hh.mm.ss aa"
-                let result = formater.string(from: datePicker.date)
+                let result = formater.string(from: datePickerDeadline.date)
                 tfDeadlineDate.text = "\(result)"
                 self.view.endEditing(true)
             }
