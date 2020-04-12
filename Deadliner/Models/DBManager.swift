@@ -10,6 +10,10 @@ import Foundation
 import CoreData
 
 
+enum Operation {
+    case add,update
+}
+
 struct DBManager {
     
     let context = AppDelegate.singleton.persistentContainer.viewContext
@@ -28,7 +32,7 @@ struct DBManager {
         return results
     }
     
-    func save() {
+    private func saveToDB() {
         do {
             try context.save()
         } catch let error as NSError {
@@ -36,9 +40,21 @@ struct DBManager {
         }
     }
     
+    func save(object: Activity, operation: Operation) {
+        switch operation {
+        case .add:
+            Notification.addNotification(object)
+        case .update:
+            Notification.editNotification(object)
+        }
+        
+        saveToDB()
+    }
+    
+    
     func remove(_ object: NSManagedObject) {
         context.delete(object)
-        save()
+        saveToDB()
     }
     
 }

@@ -276,16 +276,15 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
         }else{
         
         
-            activity?.title = tfActivityName.text
-            activity?.startDate = datePicker.date
-            activity?.endDate = datePickerDeadline.date
-            activity?.notes = tvActivityDescription.text
-            activity?.isDone = false
-            activity?.priority = NSNumber(value: priorityIndexGenerator())
+            guard let activity = activity else {return}
+            activity.title = tfActivityName.text
+            activity.startDate = datePicker.date
+            activity.endDate = datePickerDeadline.date
+            activity.notes = tvActivityDescription.text
+            activity.isDone = false
+            activity.priority = NSNumber(value: priorityIndexGenerator())
+            db.save(object: activity, operation: .update)
             
-            Notification.editNotification(activity!)
-        
-            db.save()
         }
         dismiss(animated: true){
             self.delegate?.onBackHome()
