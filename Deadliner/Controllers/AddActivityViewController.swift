@@ -20,17 +20,14 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     let datePicker = UIDatePicker()
     let datePickerDeadline = UIDatePicker()
     let pickerView = UIPickerView()
-    let placeholder = "Activity Description"
+    
     
     @IBOutlet weak var tfDeadlineDate: UITextField!
     
     var pickerData: [String] = [String]()
     
     var result = ""
-    var priorityIndex = 0
-    
     var db = DBManager()
-    
     var delegate: BackHandler?
     
     override func viewDidLoad() {
@@ -188,33 +185,27 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
         
     }
     
-    func priorityIndexGenerator() -> Int{
-        switch tfPriority.text {
-        case "High":
-            priorityIndex = 3
-        case "Medium":
-            priorityIndex = 2
-        case "Low":
-            priorityIndex = 1
-        default:
-            priorityIndex = 0
-        }
-        return priorityIndex
-    }
-    
     @IBAction func btnSave(_ sender: Any) {
         
-        if validateUserInput() {
-            let newActivity = Activity(context: db.context)
+        let priority = priorityIndexGenerator(priorityField: tfPriority)
+
+        if validateUserInput(nameField: tfActivityName,
+                            datePicker: datePicker,
+                            startDateField: tfStartDate,
+                            datePickerDeadline: datePickerDeadline,
+                            deadlineField: tfDeadlineDate,
+                            priority: priority,
+                            descriptionField: tvActivityDescription,
+                            controller: self) {
             
+            let newActivity = Activity(context: db.context)
             newActivity.id = "\(NSUUID().uuidString.split(separator: "-").first!)"
             newActivity.title = tfActivityName.text
             newActivity.startDate = datePicker.date
             newActivity.endDate = datePickerDeadline.date
             newActivity.notes = tvActivityDescription.text
             newActivity.isDone = false
-            newActivity.priority = NSNumber(value: priorityIndexGenerator())
-            print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+            newActivity.priority = NSNumber(value: priority)
             db.save(object: newActivity, operation: .add)
         }
         
@@ -227,14 +218,6 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     @IBAction func btnCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    func alertValidation(_ input:String){
-        let alert = UIAlertController(title: "Message Alert", message: input, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     
     
     func hexStringToUIColor (hex:String) -> UIColor {
@@ -262,28 +245,3 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
 }
 
 
-// MARK: - Functionalities
-extension AddActivityViewController {
-    private func validateUserInput() -> Bool {
-        var value = false
-        if tfActivityName.text?.isEmpty == true {
-            alertValidation("Please fill your Activity Name")
-            
-        }else if tfStartDate.text?.isEmpty == true{
-            alertValidation("Please fill your Start Date")
-        }else if !(datePicker.date >= Date()){
-            alertValidation("Your Start Date can't be below from Current Date")
-        }else if tfDeadlineDate.text?.isEmpty == true{
-            alertValidation("Please fill your Deadline Date")
-        }else if datePicker.date >= datePickerDeadline.date{
-            alertValidation("Your Start Date can't be above from Deadline Date")
-        }else if priorityIndexGenerator() == 0{
-            alertValidation("Please Choose your activity priority")
-        }else if tvActivityDescription.text.isEmpty || tvActivityDescription.text == placeholder{
-            alertValidation("Please fill your Activity Description")
-        } else {
-            value = true
-        }
-        return value
-    }
-}

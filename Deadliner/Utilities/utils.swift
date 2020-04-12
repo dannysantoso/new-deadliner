@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 /*
@@ -74,4 +75,72 @@ func stringtoDateFormatter(dateToBeFormatted: String) -> Date{
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
     return dateFormatter.date(from: dateToBeFormatted)!
+}
+
+
+//Create and show alert for validation
+func alertValidation(_ input:String, controller: UIViewController) {
+    let alert = UIAlertController(title: "Message Alert", message: input, preferredStyle: .alert)
+    let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+    alert.addAction(action)
+    controller.present(alert, animated: true, completion: nil)
+}
+
+
+func priorityIndexGenerator(priorityField: UITextField) -> Int{
+    
+    switch priorityField.text {
+    case "High":
+        return 3
+    case "Medium":
+         return 2
+    case "Low":
+        return 1
+    default:
+        return 0
+    }
+}
+
+//validate user input function
+let placeholder = "Activity Description"
+func validateUserInput(nameField: UITextField,
+                       datePicker: UIDatePicker,
+                       startDateField: UITextField,
+                       datePickerDeadline: UIDatePicker,
+                       deadlineField: UITextField,
+                       priority: Int,
+                       descriptionField: UITextView,
+                       controller: UIViewController) -> Bool {
+    
+    var value = false
+    var message = ""
+    
+    if nameField.text?.isEmpty == true {
+        message = "Please fill your Activity Name"
+    }else if startDateField.text?.isEmpty == true{
+        message = "Please fill your Start Date"
+    }else if !(datePicker.date >= Date()){
+        message = "Your Start Date can't be below from Current Date"
+    }else if deadlineField.text?.isEmpty == true{
+        message = "Please fill your Deadline Date"
+    }else if datePicker.date >= datePickerDeadline.date{
+        message = "Your Start Date can't be above from Deadline Date"
+    }else if priority == 0{
+        message = "Please Choose your activity priority"
+    }else if descriptionField.text!.isEmpty {
+        message = "Please fill your Activity Description"
+    } else {
+        value = true
+    }
+    !value ? alertValidation(message, controller: controller) : nil
+    
+    return value
+}
+
+
+//date converter
+func dateConverter(tanggal: Date) -> String{
+    let datetostring = DateFormatter()
+    datetostring.dateFormat = "MMMM dd, yyyy hh:mm aa"
+    return datetostring.string(from: tanggal)
 }

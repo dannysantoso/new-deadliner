@@ -20,7 +20,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             let datePicker = UIDatePicker()
             let datePickerDeadline = UIDatePicker()
             let pickerView = UIPickerView()
-            let placeholder = "Activity Description"
+           
             
             @IBOutlet weak var tfDeadlineDate: UITextField!
             
@@ -31,7 +31,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             
             var result = ""
     
-    var delegate: BackHandler?
+            var delegate: BackHandler?
     
             var db = DBManager()
             
@@ -156,8 +156,6 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
                 
                 tfStartDate.inputView = datePicker
                 
-                
-                
                 //date picker mode
                 //datePicker.datePickerMode = .date
                 
@@ -245,47 +243,32 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
                 )
             }
     
-    func priorityIndexGenerator() -> Int{
-        switch tfPriority.text {
-        case "High":
-            priorityIndex = 3
-        case "Medium":
-            priorityIndex = 2
-        case "Low":
-            priorityIndex = 1
-        default:
-            priorityIndex = 0
-        }
-        return priorityIndex
-    }
+
 
     @IBAction func btnSave(_ sender: Any) {
         
-        if tfActivityName.text?.isEmpty == true {
-            alertValidation("Please fill your Activity Name")
-        }else if tfStartDate.text?.isEmpty == true{
-            alertValidation("Please fill your Start Date")
-        }else if tfDeadlineDate.text?.isEmpty == true{
-            alertValidation("Please fill your Deadline Date")
-        }else if datePicker.date >= datePickerDeadline.date{
-            alertValidation("Your Start Date can't be above from Deadline Date")
-        }else if priorityIndexGenerator() == 0{
-            alertValidation("Please Choose your activity priority")
-        }else if tvActivityDescription.text.isEmpty || tvActivityDescription.text == placeholder{
-            alertValidation("Please fill your Activity Description")
-        }else{
+        let priority = priorityIndexGenerator(priorityField: tfPriority)
         
-        
-            guard let activity = activity else {return}
-            activity.title = tfActivityName.text
-            activity.startDate = datePicker.date
-            activity.endDate = datePickerDeadline.date
-            activity.notes = tvActivityDescription.text
-            activity.isDone = false
-            activity.priority = NSNumber(value: priorityIndexGenerator())
-            db.save(object: activity, operation: .update)
+        if validateUserInput(nameField: tfActivityName,
+                             datePicker: datePicker,
+                             startDateField: tfStartDate,
+                             datePickerDeadline: datePickerDeadline,
+                             deadlineField: tfDeadlineDate,
+                             priority: priority,
+                             descriptionField: tvActivityDescription,
+                             controller: self) {
             
+            guard let activity = activity else {return}
+                activity.title = tfActivityName.text
+                activity.startDate = datePicker.date
+                activity.endDate = datePickerDeadline.date
+                activity.notes = tvActivityDescription.text
+                activity.isDone = false
+                activity.priority = NSNumber(value: priority)
+                db.save(object: activity, operation: .update)
         }
+        
+
         dismiss(animated: true){
             self.delegate?.onBackHome()
         }
@@ -297,10 +280,5 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             self.delegate?.onBackHome()
         }
     }
-    func alertValidation(_ input:String){
-        let alert = UIAlertController(title: "Message Alert", message: input, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
+    
 }
