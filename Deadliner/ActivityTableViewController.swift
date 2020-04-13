@@ -193,8 +193,10 @@ extension ActivityTableViewController {
         
 //        db.save(object: activity, operation: .update)
         
-        refreshData()
-        self.tableView.reloadData()
+        if !tableView.isEditing {
+            refreshData()
+            self.tableView.reloadData()
+        }
     }
     
     func updateTimeLabel(for cell: ActivityTableViewCell, at indexPath: IndexPath) {
