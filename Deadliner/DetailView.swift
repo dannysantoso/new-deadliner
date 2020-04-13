@@ -13,7 +13,7 @@ class DetailView: UIViewController, BackHandler {
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var endDate: UILabel!
     @IBOutlet weak var priorityLevel: UILabel!
-    @IBOutlet weak var taskDescription: UILabel!
+    @IBOutlet weak var taskDescription: UITextView!
     @IBOutlet weak var activityTitle: UILabel!
     
     
@@ -70,6 +70,7 @@ class DetailView: UIViewController, BackHandler {
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
             switch action.style{
             case .destructive:
+                Notification.removeNotification(self.activity!)
                 self.db.remove(self.activity!)
                 self.navigationController?.popViewController(animated: true)
                 break

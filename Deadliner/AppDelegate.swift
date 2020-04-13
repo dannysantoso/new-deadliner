@@ -13,11 +13,13 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static let singleton = AppDelegate()
+    let notification = Notification.getInstance()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        Notification.requestNotificationAuth()
-        Notification.removeBadge()
+        notification.notificationConfig()
+        notification.notificationCenter.delegate = notification
+        let data = UserDefaults.standard.integer(forKey: "testing")
+        print(data)
         return true
     }
 

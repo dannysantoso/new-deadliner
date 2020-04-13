@@ -17,6 +17,12 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             @IBOutlet weak var tfPriority: UITextField!
             @IBOutlet weak var tvActivityDescription: UITextView!
             
+            @IBOutlet weak var lblPriority: UILabel!
+            @IBOutlet weak var lblDeadlineDate: UILabel!
+            @IBOutlet weak var lblStartDate: UILabel!
+    
+            @IBOutlet weak var titleActivity: UILabel!
+    
             let datePicker = UIDatePicker()
             let datePickerDeadline = UIDatePicker()
             let pickerView = UIPickerView()
@@ -31,12 +37,14 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             
             var result = ""
     
-    var delegate: BackHandler?
+            var delegate: BackHandler?
     
             var db = DBManager()
             
             override func viewDidLoad() {
                 super.viewDidLoad()
+                
+                
                 
                 pickerData = ["High","Medium","Low"]
                 
@@ -86,10 +94,11 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
                 
                 
                 activityDescriptionSetting()
+                lightAndDark()
             }
             
             func activityDescriptionSetting(){
-                let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+                let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
 
                 view.addGestureRecognizer(tap)
                 
@@ -104,7 +113,11 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             func textViewDidBeginEditing(_ tvActivityDescription: UITextView) {
                 if tvActivityDescription.textColor == hexStringToUIColor(hex: "C6C6C8") {
                     tvActivityDescription.text = ""
-                    tvActivityDescription.textColor = UIColor.black
+                    if traitCollection.userInterfaceStyle == .dark {
+                        tvActivityDescription.textColor = UIColor.white
+                    }else{
+                        tvActivityDescription.textColor = UIColor.black
+                    }
                 }
             }
             
@@ -197,7 +210,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
                 let formater = DateFormatter()
                 formater.dateFormat = "MMMM dd, yyyy hh:mm aa"
     //            formater.dateFormat = "dd.MM.yyyy hh.mm.ss aa"
-                let result = formater.string(from: datePicker.date)
+                let result = formater.string(from: datePickerDeadline.date)
                 tfDeadlineDate.text = "\(result)"
                 self.view.endEditing(true)
             }
@@ -276,16 +289,15 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
         }else{
         
         
-            activity?.title = tfActivityName.text
-            activity?.startDate = datePicker.date
-            activity?.endDate = datePickerDeadline.date
-            activity?.notes = tvActivityDescription.text
-            activity?.isDone = false
-            activity?.priority = NSNumber(value: priorityIndexGenerator())
+            guard let activity = activity else {return}
+            activity.title = tfActivityName.text
+            activity.startDate = datePicker.date
+            activity.endDate = datePickerDeadline.date
+            activity.notes = tvActivityDescription.text
+            activity.isDone = false
+            activity.priority = NSNumber(value: priorityIndexGenerator())
+            db.save(object: activity, operation: .update)
             
-        
-        
-            db.save()
         }
         dismiss(animated: true){
             self.delegate?.onBackHome()
@@ -303,5 +315,22 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func lightAndDark() {
+        if traitCollection.userInterfaceStyle == .dark {
+                    
+            
+            
+            lblPriority.textColor = UIColor.white
+            lblDeadlineDate.textColor = UIColor.white
+            lblStartDate.textColor = UIColor.white
+            titleActivity.textColor = UIColor.white
+            tvActivityDescription.textColor = UIColor.white
+            
+            
+                    
+        }
+
     }
 }

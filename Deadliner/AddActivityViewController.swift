@@ -10,8 +10,12 @@ import UIKit
 
 class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
+    @IBOutlet weak var lblPriority: UILabel!
     @IBOutlet weak var tableForm: UITableView!
+    @IBOutlet weak var lblDeadlineDate: UILabel!
+    @IBOutlet weak var lblActivity: UILabel!
     
+    @IBOutlet weak var lblStartDate: UILabel!
     @IBOutlet weak var tfActivityName: UITextField!
     @IBOutlet weak var tfStartDate: UITextField!
     @IBOutlet weak var tfPriority: UITextField!
@@ -51,11 +55,13 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
         
         tvActivityDescription.textColor = hexStringToUIColor(hex: "C6C6C8")
         activityDescriptionSetting()
+        
+        lightAndDark()
     }
     
     
     func activityDescriptionSetting(){
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         
         view.addGestureRecognizer(tap)
         
@@ -70,7 +76,11 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     func textViewDidBeginEditing(_ tvActivityDescription: UITextView) {
         if tvActivityDescription.textColor == hexStringToUIColor(hex: "C6C6C8") {
             tvActivityDescription.text = ""
-            tvActivityDescription.textColor = UIColor.black
+            if traitCollection.userInterfaceStyle == .dark {
+                tvActivityDescription.textColor = UIColor.white
+            }else{
+                tvActivityDescription.textColor = UIColor.black
+            }
         }
     }
     
@@ -204,43 +214,27 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     
     @IBAction func btnSave(_ sender: Any) {
         
-        
-        
-        if tfActivityName.text?.isEmpty == true {
-            alertValidation("Please fill your Activity Name")
-        }else if tfStartDate.text?.isEmpty == true{
-            alertValidation("Please fill your Start Date")
-        }else if !(datePicker.date >= Date()){                    alertValidation("Your Start Date can't be below from Current Date")
-        }else if tfDeadlineDate.text?.isEmpty == true{
-            alertValidation("Please fill your Deadline Date")
-        }else if datePicker.date >= datePickerDeadline.date{
-            alertValidation("Your Start Date can't be above from Deadline Date")
-        }else if priorityIndexGenerator() == 0{
-            alertValidation("Please Choose your activity priority")
-        }else if tvActivityDescription.text.isEmpty || tvActivityDescription.text == placeholder{
-            alertValidation("Please fill your Activity Description")
-        }else{
-            
-            
+        if validateUserInput() {
             let newActivity = Activity(context: db.context)
+            
+            newActivity.id = "\(NSUUID().uuidString.split(separator: "-").first!)"
             newActivity.title = tfActivityName.text
             newActivity.startDate = datePicker.date
             newActivity.endDate = datePickerDeadline.date
             newActivity.notes = tvActivityDescription.text
             newActivity.isDone = false
             newActivity.priority = NSNumber(value: priorityIndexGenerator())
+            print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
             
-            
-            
-            db.save()
+            db.save(object: newActivity, operation: .add)
         }
+        
         dismiss(animated: true){
             self.delegate?.onBackHome()
         }
         
-        //                print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
     }
+    
     @IBAction func btnCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -276,4 +270,43 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
         )
     }
     
+    func lightAndDark() {
+        if traitCollection.userInterfaceStyle == .dark {
+                    
+            lblPriority.textColor = UIColor.white
+            lblDeadlineDate.textColor = UIColor.white
+            lblStartDate.textColor = UIColor.white
+            lblActivity.textColor = UIColor.white
+                    
+        }
+
+    }
+    
+}
+
+
+// MARK: - Functionalities
+extension AddActivityViewController {
+    private func validateUserInput() -> Bool {
+        var value = false
+        if tfActivityName.text?.isEmpty == true {
+            alertValidation("Please fill your Activity Name")
+            
+        }else if tfStartDate.text?.isEmpty == true{
+            alertValidation("Please fill your Start Date")
+        }else if !(datePicker.date >= Date()){
+            alertValidation("Your Start Date can't be below from Current Date")
+        }else if tfDeadlineDate.text?.isEmpty == true{
+            alertValidation("Please fill your Deadline Date")
+        }else if datePicker.date >= datePickerDeadline.date{
+            alertValidation("Your Start Date can't be above from Deadline Date")
+        }else if priorityIndexGenerator() == 0{
+            alertValidation("Please Choose your activity priority")
+        }else if tvActivityDescription.text.isEmpty || tvActivityDescription.text == placeholder{
+            alertValidation("Please fill your Activity Description")
+        } else {
+            value = true
+        }
+        return value
+    }
 }
