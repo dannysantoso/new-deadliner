@@ -30,6 +30,17 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
         
     }
     
+    static func removeBadge() {
+        let currentNotif =  UIApplication.shared.applicationIconBadgeNumber
+        let badgeCounter = UserDefaults.standard.integer(forKey: "badge") - currentNotif
+        UserDefaults.standard.set(
+            badgeCounter < 0
+                ? 0
+                : badgeCounter,
+            forKey: "badge")
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+    
     static private func buildNotification(_ activity:Activity, identifier:notifIdentifier ) {
         let content = UNMutableNotificationContent()
         switch identifier {
@@ -41,7 +52,9 @@ class Notification:NSObject, UNUserNotificationCenterDelegate{
             content.body = "\(activity.title!) is going to due soon"
         }
         content.sound = .default
-        content.badge = 1
+        let badge = UserDefaults.standard.integer(forKey: "badge") + 1
+        content.badge = NSNumber(value: badge)
+        UserDefaults.standard.set(badge, forKey: "badge")
         content.categoryIdentifier = "DeadlinerNotification"
         let timeInterval =
             identifier == .cmo
