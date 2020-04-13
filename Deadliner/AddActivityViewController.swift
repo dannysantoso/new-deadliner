@@ -10,8 +10,12 @@ import UIKit
 
 class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
+    @IBOutlet weak var lblPriority: UILabel!
     @IBOutlet weak var tableForm: UITableView!
+    @IBOutlet weak var lblDeadlineDate: UILabel!
+    @IBOutlet weak var lblActivity: UILabel!
     
+    @IBOutlet weak var lblStartDate: UILabel!
     @IBOutlet weak var tfActivityName: UITextField!
     @IBOutlet weak var tfStartDate: UITextField!
     @IBOutlet weak var tfPriority: UITextField!
@@ -51,6 +55,8 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
         
         tvActivityDescription.textColor = hexStringToUIColor(hex: "C6C6C8")
         activityDescriptionSetting()
+        
+        lightAndDark()
     }
     
     
@@ -258,6 +264,23 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
+    }
+    
+    func lightAndDark() {
+        if traitCollection.userInterfaceStyle == .dark {
+                    
+            
+            
+            lblPriority.textColor = UIColor.white
+            lblDeadlineDate.textColor = UIColor.white
+            lblStartDate.textColor = UIColor.white
+            lblActivity.textColor = UIColor.white
+            
+            
+            
+                    
+        }
+
     }
     
 }

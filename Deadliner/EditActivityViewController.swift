@@ -17,6 +17,12 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             @IBOutlet weak var tfPriority: UITextField!
             @IBOutlet weak var tvActivityDescription: UITextView!
             
+            @IBOutlet weak var lblPriority: UILabel!
+            @IBOutlet weak var lblDeadlineDate: UILabel!
+            @IBOutlet weak var lblStartDate: UILabel!
+    
+            @IBOutlet weak var titleActivity: UILabel!
+    
             let datePicker = UIDatePicker()
             let datePickerDeadline = UIDatePicker()
             let pickerView = UIPickerView()
@@ -31,12 +37,14 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
             
             var result = ""
     
-    var delegate: BackHandler?
+            var delegate: BackHandler?
     
             var db = DBManager()
             
             override func viewDidLoad() {
                 super.viewDidLoad()
+                
+                
                 
                 pickerData = ["High","Medium","Low"]
                 
@@ -86,6 +94,7 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
                 
                 
                 activityDescriptionSetting()
+                lightAndDark()
             }
             
             func activityDescriptionSetting(){
@@ -302,5 +311,22 @@ class EditActivityViewController: UITableViewController, UIPickerViewDelegate, U
         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func lightAndDark() {
+        if traitCollection.userInterfaceStyle == .dark {
+                    
+            
+            
+            lblPriority.textColor = UIColor.white
+            lblDeadlineDate.textColor = UIColor.white
+            lblStartDate.textColor = UIColor.white
+            titleActivity.textColor = UIColor.white
+            tvActivityDescription.textColor = UIColor.white
+            
+            
+                    
+        }
+
     }
 }
