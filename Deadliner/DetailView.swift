@@ -13,7 +13,7 @@ class DetailView: UIViewController, BackHandler {
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var endDate: UILabel!
     @IBOutlet weak var priorityLevel: UILabel!
-    @IBOutlet weak var taskDescription: UILabel!
+    @IBOutlet weak var taskDescription: UITextView!
     @IBOutlet weak var activityTitle: UILabel!
     
     

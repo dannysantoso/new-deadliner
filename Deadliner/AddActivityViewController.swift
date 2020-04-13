@@ -76,7 +76,7 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     func textViewDidBeginEditing(_ tvActivityDescription: UITextView) {
         if tvActivityDescription.textColor == hexStringToUIColor(hex: "C6C6C8") {
             tvActivityDescription.text = ""
-            if traitCollection.userInterfaceStyle == .dark { 
+            if traitCollection.userInterfaceStyle == .dark {
                 tvActivityDescription.textColor = UIColor.white
             }else{
                 tvActivityDescription.textColor = UIColor.black
@@ -273,15 +273,10 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     func lightAndDark() {
         if traitCollection.userInterfaceStyle == .dark {
                     
-            
-            
             lblPriority.textColor = UIColor.white
             lblDeadlineDate.textColor = UIColor.white
             lblStartDate.textColor = UIColor.white
             lblActivity.textColor = UIColor.white
-            
-            
-            
                     
         }
 
