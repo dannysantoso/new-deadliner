@@ -76,7 +76,11 @@ class AddActivityViewController: UITableViewController, UIPickerViewDelegate, UI
     func textViewDidBeginEditing(_ tvActivityDescription: UITextView) {
         if tvActivityDescription.textColor == hexStringToUIColor(hex: "C6C6C8") {
             tvActivityDescription.text = ""
-            tvActivityDescription.textColor = UIColor.black
+            if traitCollection.userInterfaceStyle == .dark { 
+                tvActivityDescription.textColor = UIColor.white
+            }else{
+                tvActivityDescription.textColor = UIColor.black
+            }
         }
     }
     
