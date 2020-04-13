@@ -15,6 +15,7 @@ class DetailView: UIViewController, BackHandler {
     @IBOutlet weak var priorityLevel: UILabel!
     @IBOutlet weak var taskDescription: UILabel!
     @IBOutlet weak var activityTitle: UILabel!
+    @IBOutlet weak var markAsDone: UIButton!
     
     
     var activity: Activity? = nil
@@ -26,6 +27,14 @@ class DetailView: UIViewController, BackHandler {
         super.viewDidLoad()
         priorityLevel.layer.cornerRadius = 5
         priorityLevel.layer.masksToBounds = true
+        markAsDone.layer.cornerRadius = 5
+        markAsDone.layer.masksToBounds = true
+        
+        if ((activity?.startDate)! < Date() && activity?.isDone == false) {
+            markAsDone.isHidden = false
+        } else {
+            markAsDone.isHidden = true
+        }
         
         initData()
     }
@@ -64,6 +73,34 @@ class DetailView: UIViewController, BackHandler {
     @IBAction func editActivity(_ sender: Any) {
         performSegue(withIdentifier: "toEdit", sender: activity)
     }
+    
+    @IBAction func MarkAsDone(_ sender: Any) {
+        let alert = UIAlertController(title: "Mark as Finished", message: "you are about to mark this activity done, are you sure?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {
+            action in switch action.style{
+            case .default:
+                self.activity?.isDone = true
+                self.db.save(object: self.activity!, operation: .update)
+                self.navigationController?.popViewController(animated: true)
+                break
+            default:
+                break
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: {action in
+            switch action.style{
+            case .cancel:
+                break
+            default:
+                break
+            }
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     @IBAction func deleteActivity(_ sender: Any) {
         let alert = UIAlertController(title: "Delete Activity", message: "You are about to delete this activity, are you sure?", preferredStyle: .alert)
