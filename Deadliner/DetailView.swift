@@ -57,7 +57,7 @@ class DetailView: UIViewController, BackHandler {
         taskDescription.text = activity?.notes
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         delegate?.onBackHome()
     }
     
