@@ -114,10 +114,10 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
 
     private func configureNotifAction(identifier:notifIdentifier) -> String {
         let remindAction = UNNotificationAction(identifier: "Remind", title: "Remind Again", options: [])
-        let markAsDoneAction = UNNotificationAction(identifier: "Mark", title: "Mark As done", options: [])
+//        let markAsDoneAction = UNNotificationAction(identifier: "Mark", title: "Mark As done", options: [])
         
         let categoryEnd = UNNotificationCategory(identifier: "DeadlinerNotificationsEND",
-        actions: [remindAction, markAsDoneAction],
+        actions: [remindAction],
         intentIdentifiers: [],
         options: [])
         let categoryCmo = UNNotificationCategory(identifier: "DeadlinerNotificationsCMO",
@@ -169,12 +169,12 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     }
     
     private func markActivityAsDone(_ notificationRequest:UNNotificationRequest) {
-        let activityId = notificationRequest.content.userInfo["activity"] as! String
-        var db = DBManager()
-        let predicate = NSPredicate(format: "id == %@",activityId)
-        let activity = db.fetch(withPredicate: predicate)[0]
-        activity.isDone = true
-        db.save(object: activity, operation: .update)
+//        let activityId = notificationRequest.content.userInfo["activity"] as! String
+//        var db = DBManager()
+//        let predicate = NSPredicate(format: "id == %@",activityId)
+//        let activity = db.fetch(withPredicate: predicate)[0]
+//        activity.isDone = true
+//        db.save(object: activity, operation: .update)
     }
     
 }
