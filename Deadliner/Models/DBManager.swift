@@ -53,6 +53,7 @@ struct DBManager {
     
     
     func remove(_ object: NSManagedObject) {
+        Notification.removeNotification(object as! Activity)
         context.delete(object)
         saveToDB()
     }

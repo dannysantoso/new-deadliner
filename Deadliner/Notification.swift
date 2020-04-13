@@ -8,7 +8,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     let options: UNAuthorizationOptions = [.alert, .sound, .badge]
     let notificationCenter = UNUserNotificationCenter.current()
     static var instance:Notification?
-    private let REMINDER_TIME = 3
+    private let REMINDER_TIME = TimeInterval(900)
     
     
     enum notifIdentifier: String{
@@ -49,14 +49,14 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     }
     
     func removeBadge() {
-//        let currentNotif =  UIApplication.shared.applicationIconBadgeNumber
-//        let badgeCounter = UserDefaults.standard.integer(forKey: "badge") - currentNotif
-//        UserDefaults.standard.set(
-//            badgeCounter < 0
-//                ? 0
-//                : badgeCounter,
-//            forKey: "badge")
-//        UIApplication.shared.applicationIconBadgeNumber = 0
+        let currentNotif =  UIApplication.shared.applicationIconBadgeNumber
+        let badgeCounter = UserDefaults.standard.integer(forKey: "badge") - currentNotif
+        UserDefaults.standard.set(
+            badgeCounter < 0
+                ? 0
+                : badgeCounter,
+            forKey: "badge")
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     private func buildNotification(_ activity:Activity, identifier:notifIdentifier ) {
@@ -73,6 +73,10 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
         content.badge = NSNumber(value: badge)
         content.categoryIdentifier = configureNotifAction(identifier: identifier)
         content.userInfo["activity"] = activity.id!
+        content.userInfo["title"] = activity.title!
+        content.userInfo["startDate"] = dateConverter(tanggal: (activity.startDate)!)
+        content.userInfo["endDate"] = dateConverter(tanggal: (activity.endDate)!)
+        content.userInfo["priority"] = activity.priority
         UserDefaults.standard.set(badge, forKey: "badge")
         let timeInterval =
             identifier == .cmo
@@ -105,11 +109,11 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     }
 
     static func removeNotification(_ activity:Activity) {
-        Notification.getInstance().notificationCenter.removePendingNotificationRequests(withIdentifiers: ["CMO\(activity.objectID)","END\(activity.objectID)"])
+        Notification.getInstance().notificationCenter.removePendingNotificationRequests(withIdentifiers: ["CMO\(activity.id!)","END\(activity.id!)"])
     }
 
     private func configureNotifAction(identifier:notifIdentifier) -> String {
-        let remindAction = UNNotificationAction(identifier: "Remind", title: "Remind in 1 day", options: [])
+        let remindAction = UNNotificationAction(identifier: "Remind", title: "Remind Again", options: [])
         let markAsDoneAction = UNNotificationAction(identifier: "Mark", title: "Mark As done", options: [])
         
         let categoryEnd = UNNotificationCategory(identifier: "DeadlinerNotificationsEND",
@@ -131,6 +135,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        removeBadge()
         completionHandler(UNNotificationPresentationOptions.init([.alert, .badge]))
     }
 
@@ -150,7 +155,7 @@ class Notification:NSObject, UNUserNotificationCenterDelegate {
         let content = notificationRequest.content
         let identifier = notificationRequest.identifier
         let trigger = UNTimeIntervalNotificationTrigger(
-            timeInterval: TimeInterval(self.REMINDER_TIME),
+            timeInterval: self.REMINDER_TIME,
             repeats: false)
         let request = UNNotificationRequest(
             identifier: identifier,
